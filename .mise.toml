@@ -1,0 +1,9 @@
+[tools]
+java = "zulu-17"
+ruby = { version = "2.7.6", postinstall = "gem update --system 3.2.33 && gem install bundler" }
+node = { version = "22.2.0", postinstall = "corepack enable" }
+
+[env]
+NODE_ENV = 'development'
+USE_FRAMEWORKS = 'static'
+#EXPO_UNSTABLE_CORE_AUTOLINKING = '1'
