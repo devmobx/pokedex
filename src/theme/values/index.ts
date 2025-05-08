@@ -1,1 +1,1 @@
-export * from "./fonts/inter";
+export * from "./fonts";

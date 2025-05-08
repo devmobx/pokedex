@@ -1,1 +1,1 @@
-export * from "./inter";
+export * from "./familys";

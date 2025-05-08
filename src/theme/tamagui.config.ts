@@ -1,12 +1,12 @@
 import { defaultConfig } from "@tamagui/config/v4";
 import { createTamagui } from "tamagui";
 
-import { interFont } from "./values";
+import { bodyFont, headerFont } from "./values";
 
 export const tamaguiConfig = createTamagui({
   ...defaultConfig,
   fonts: {
-    body: interFont,
-    heading: interFont
+    body: bodyFont,
+    heading: headerFont
   }
 });

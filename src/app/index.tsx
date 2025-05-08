@@ -4,8 +4,13 @@ import { Text, View } from "tamagui";
 export default function StartScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View flex={1} alignItems="center" justifyContent="center">
-        <Text fontSize={"$4"} color={"brown"}>
+      <View flex={1} justify="center" items="center">
+        <Text
+          fontSize="$10"
+          color="blueviolet"
+          fontFamily="$body"
+          fontWeight="700"
+        >
           Hello
         </Text>
       </View>
