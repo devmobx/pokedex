@@ -1,4 +1,4 @@
-import { createFont } from "tamagui";
+import { createFont } from "@tamagui/core";
 
 import { PoppinsName } from "@/assets/fonts/Poppins/nameMap";
 

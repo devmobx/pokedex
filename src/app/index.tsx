@@ -1,19 +1,22 @@
-import { SafeAreaView } from "react-native";
-import { Text, View } from "tamagui";
+import { Text, View } from "@tamagui/core";
+
+import { ScreenContainer } from "@/components/shared";
+import { useTranslation } from "@/i18n";
 
 export default function StartScreen() {
+  const { t } = useTranslation();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View flex={1} justify="center" items="center">
+    <ScreenContainer edges={["top", "bottom"]}>
+      <View flex={1} justifyContent="center" alignItems="center">
         <Text
-          fontSize="$10"
-          color="blueviolet"
-          fontFamily="$body"
+          color="$primary2"
+          fontFamily="$heading"
           fontWeight="700"
+          fontSize="$10"
         >
-          Hello
+          {t("base:product_name")}
         </Text>
       </View>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 }

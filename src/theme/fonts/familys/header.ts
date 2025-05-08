@@ -1,4 +1,4 @@
-import { createFont } from "tamagui";
+import { createFont } from "@tamagui/core";
 
 import { InterName } from "@/assets/fonts/Inter/nameMap";
 

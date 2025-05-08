@@ -1,7 +1,7 @@
+import { TamaguiProvider } from "@tamagui/core";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
-import { TamaguiProvider } from "tamagui";
 
 import { tamaguiConfig, useLoadFonts } from "@/theme";
 
@@ -17,7 +17,7 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
+    <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
