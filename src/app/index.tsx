@@ -1,16 +1,14 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native";
+import { Text, View } from "tamagui";
 
 export default function StartScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Hello</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View flex={1} alignItems="center" justifyContent="center">
+        <Text fontSize={"$4"} color={"brown"}>
+          Hello
+        </Text>
+      </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF"
-  }
-});

@@ -33,6 +33,7 @@ module.exports = defineConfig([
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-empty-interface": [
         "error",
         { allowSingleExtends: true }

@@ -1,36 +1,26 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
 import "react-native-reanimated";
+import { TamaguiProvider } from "tamagui";
 
-// import { useNavigationLogger } from "@/navigation";
-import { useLoadFonts } from "@/theme";
+import { tamaguiConfig, useLoadFonts } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // useNavigationLogger();
-  const { fontsLoaded, loadFonts } = useLoadFonts();
+  const fontsLoaded = useLoadFonts();
 
-  useEffect(() => {
-    (async () => {
-      await loadFonts();
-    })();
-  }, [loadFonts]);
-
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hide();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
+  if (fontsLoaded) {
+    SplashScreen.hide();
+  } else {
     return null;
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <TamaguiProvider config={tamaguiConfig}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </TamaguiProvider>
   );
 }
