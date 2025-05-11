@@ -5,4 +5,5 @@ export * from "./dev";
 export * from "./events";
 export * from "./functions";
 export * from "./isSmallDevice";
+export * from "./objects";
 export * from "./strings";

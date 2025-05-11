@@ -1,22 +1,34 @@
-import { Text, View } from "@tamagui/core";
+import { useRouter } from "expo-router";
 
-import { ScreenContainer } from "@/components/shared";
+import { Button, FontText, ScreenContainer } from "@/components/shared";
 import { useTranslation } from "@/i18n";
+import { styled } from "@/theme";
+
+const Content = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-horizontal: ${props => props.theme.spacing.md}px;
+`;
+
+const HeaderWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
 
 export default function StartScreen() {
+  const router = useRouter();
   const { t } = useTranslation();
   return (
     <ScreenContainer edges={["top", "bottom"]}>
-      <View flex={1} justifyContent="center" alignItems="center">
-        <Text
-          color="$primary2"
-          fontFamily="$heading"
-          fontWeight="700"
-          fontSize="$10"
-        >
-          {t("base:product_name")}
-        </Text>
-      </View>
+      <Content>
+        <HeaderWrapper>
+          <FontText>{t("base:product_name")}</FontText>
+        </HeaderWrapper>
+        <Button marginTop="auto" onPress={() => router.navigate("/(tabs)")}>
+          Enter
+        </Button>
+      </Content>
     </ScreenContainer>
   );
 }

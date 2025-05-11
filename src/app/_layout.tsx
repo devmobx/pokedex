@@ -1,13 +1,24 @@
-import { TamaguiProvider } from "@tamagui/core";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
+import ToastBase, { ToastConfig } from "react-native-toast-message";
 
-import { tamaguiConfig, useLoadFonts } from "@/theme";
+import { useThemeStore } from "@/_zustand";
+import { Toast } from "@/components/shared";
+import { getThemeByColorScheme, ThemeProvider, useLoadFonts } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
 
+export const toastConfig: ToastConfig = {
+  error: props => <Toast {...props} />,
+  success: props => <Toast {...props} />,
+  warning: props => <Toast {...props} />,
+  info: props => <Toast {...props} />
+};
+
 export default function RootLayout() {
+  // useNavigationLogger();
+  const colorScheme = useThemeStore.use.colorScheme();
   const fontsLoaded = useLoadFonts();
 
   if (fontsLoaded) {
@@ -17,10 +28,12 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
+    <ThemeProvider theme={getThemeByColorScheme(colorScheme)}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </TamaguiProvider>
+      <ToastBase config={toastConfig} />
+    </ThemeProvider>
   );
 }

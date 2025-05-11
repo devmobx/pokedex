@@ -1,27 +1,60 @@
-import { styled, useTheme, View } from "@tamagui/core";
-import React, { ComponentProps, ElementType, ReactNode } from "react";
-import {
-  ColorValue,
-  Keyboard,
-  Platform,
-  Pressable,
-  ScrollView
-} from "react-native";
+import React, { ComponentProps, ElementType } from "react";
+import { Keyboard, Platform, Pressable, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Theme } from "@/theme/types";
+import { Spacing, styled } from "@/theme";
 
-import { FocusAwareStatusBar } from "./FocusAwareStatusBar";
+import { FocusAwareStatusBar } from "./FocusAwareStatusbar";
+
+type BackgroundTypeProps = {
+  backgroundType?: "default" | "muted" | "primary";
+};
 
 type ScrollableProps = {
   scrollable?: boolean;
 };
 
-type Props = ScrollableProps &
+type Props = {
+  paddingHorizontal?: Spacing;
+  centerContent?: boolean;
+} & BackgroundTypeProps &
+  ScrollableProps &
   ComponentProps<typeof SafeAreaView> & {
     dismissKeyboardOnPress?: boolean;
-    children: ReactNode;
   };
+
+const ScrollWrapper = styled(ScrollView).attrs(({ centerContent }) => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    ...(centerContent ? { alignItems: "center" } : {})
+  },
+  keyboardShouldPersistTaps: "handled",
+  bounces: false
+}))`
+  flex: 1;
+`;
+
+const Container = styled(SafeAreaView).attrs(props => ({
+  edges: props.edges ?? []
+}))<Props>`
+  flex: 1;
+  background-color: ${props => props.theme.color.background};
+  ${({ centerContent }) => (centerContent ? "align-items: center;" : "")}
+  ${({ paddingHorizontal, theme }) =>
+    paddingHorizontal
+      ? `padding-horizontal: ${theme.spacing[paddingHorizontal]}px;`
+      : ""}
+`;
+
+const FlexOnePressable = styled(Pressable)`
+  flex: 1;
+`;
+
+const AppStatusBar = styled(FocusAwareStatusBar).attrs<BackgroundTypeProps>(
+  ({ theme }) => ({
+    backgroundColor: theme.color.background
+  })
+)``;
 
 type ScreenContainerProps<T extends ElementType> = ComponentProps<
   typeof Container
@@ -29,69 +62,29 @@ type ScreenContainerProps<T extends ElementType> = ComponentProps<
   as?: T;
 };
 
-type BackgroundColorProp = { backgroundColor: Theme };
-
-const ScrollWrapper = styled(ScrollView, {
-  name: "ScrollWrapper",
-  flex: 1,
-  contentContainerStyle: {
-    flexGrow: 1
-  },
-  keyboardShouldPersistTaps: "handled",
-  bounces: false
-});
-
-const Container = styled(SafeAreaView, {
-  name: "Container",
-  flex: 1
-});
-
-const FlexPressable = styled(Pressable, {
-  name: "FlexPressable",
-  flex: 1
-});
-
-const AppStatusBar = ({ backgroundColor }: BackgroundColorProp) => {
-  const theme = useTheme();
-  return (
-    <FocusAwareStatusBar
-      backgroundColor={theme[backgroundColor] as unknown as ColorValue}
-    />
-  );
-};
-
 export const ScreenContainer = <T extends ElementType = typeof SafeAreaView>({
   dismissKeyboardOnPress,
   scrollable = true,
-  backgroundColor = "$background",
-  edges,
+  centerContent,
   children,
   ...props
 }: ScreenContainerProps<T>) => {
   const content = scrollable ? (
-    <ScrollWrapper>{children}</ScrollWrapper>
+    <ScrollWrapper centerContent={centerContent}>{children}</ScrollWrapper>
   ) : (
     children
   );
-
-  const Wrapper = dismissKeyboardOnPress ? FlexPressable : View;
-
-  return (
-    <Wrapper
-      flex={1}
-      accessible={false}
-      onPress={dismissKeyboardOnPress ? Keyboard.dismiss : undefined}
-    >
-      {Platform.OS === "ios" && (
-        <AppStatusBar backgroundColor={backgroundColor as Theme} />
-      )}
-      <Container
-        {...props}
-        backgroundColor={backgroundColor}
-        edges={edges ?? []}
-      >
+  return dismissKeyboardOnPress ? (
+    <FlexOnePressable accessible={false} onPress={Keyboard.dismiss}>
+      {Platform.OS === "ios" && <AppStatusBar />}
+      <Container centerContent={scrollable ? false : centerContent} {...props}>
         {content}
       </Container>
-    </Wrapper>
+    </FlexOnePressable>
+  ) : (
+    <>
+      {Platform.OS === "ios" && <AppStatusBar />}
+      <Container {...props}>{content}</Container>
+    </>
   );
 };
