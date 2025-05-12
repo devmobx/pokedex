@@ -62,7 +62,7 @@ const AnimatedBackgroundLayer = styled(Animated.View)`
   width: 100%;
   height: 100%;
   background-color: ${props => props.theme.color.neutralTint};
-  border-radius: ${props => props.theme.radius.md}px;
+  border-radius: ${props => props.theme.border.radius.md}px;
 `;
 
 type AnimatedLabelProps = ViewProps &
@@ -75,9 +75,9 @@ const AnimatedLabel = styled(Animated.Text)<AnimatedLabelProps>`
   position: absolute;
   font-family: ${props =>
     ["focused", "inactive"].includes(props.inputState)
-      ? props.theme.font.poppins.medium
-      : props.theme.font.poppins["semi-bold"]};
-  font-size: ${props => props.theme.size.font.sm}px;
+      ? props.theme.font.family.poppins.medium
+      : props.theme.font.family.poppins["semi-bold"]};
+  font-size: ${props => props.theme.font.size.sm}px;
   padding-left: ${props => props.theme.spacing.lg}px;
   color: ${props => {
     if (props.hasError) {
@@ -95,22 +95,22 @@ const AnimatedLabel = styled(Animated.Text)<AnimatedLabelProps>`
 const InputField = styled(TextInput)<InputFieldProps>`
   flex: 1;
   height: 100%;
-  padding: ${props => props.theme.size.font.sm}px 30px 0px
+  padding: ${props => props.theme.font.size.sm}px 30px 0px
     ${props => props.theme.spacing.lg}px;
-  border-radius: ${props => props.theme.radius.md}px;
-  font-family: ${({ theme }) => theme.font.poppins.regular};
-  font-size: ${props => props.theme.size.font.sm}px;
+  border-radius: ${props => props.theme.border.radius.md}px;
+  font-family: ${({ theme }) => theme.font.family.poppins.regular};
+  font-size: ${props => props.theme.font.size.sm}px;
   color: ${({ theme, inputState }) =>
     inputState === "focused" ? theme.color.contrast : theme.color.neutral};
 `;
 
 const InputIconSlot = styled.View`
   width: ${props =>
-    props.theme.size.icon[ICON_SIZE] + props.theme.spacing.lg}px;
+    props.theme.icon.size[ICON_SIZE] + props.theme.spacing.lg}px;
   height: 100%;
   justify-content: center;
-  border-radius: 0 ${props => props.theme.radius.md}px
-    ${props => props.theme.radius.md}px 0;
+  border-radius: 0 ${props => props.theme.border.radius.md}px
+    ${props => props.theme.border.radius.md}px 0;
 `;
 
 const InputWrapper = styled.View<InputWrapperProps>`
@@ -121,14 +121,14 @@ const InputWrapper = styled.View<InputWrapperProps>`
   width: 100%;
   height: ${HEIGHT}px;
   overflow-x: visible;
-  border: solid ${props => props.theme.size.border.xs}px;
+  border: solid ${props => props.theme.border.size.xs}px;
   border-color: ${props =>
     props.hasError
       ? props.theme.color.error
       : ["focused"].includes(props.inputState)
       ? props.theme.color.primary1
       : props.theme.color.shadow};
-  border-radius: ${props => props.theme.radius.md}px;
+  border-radius: ${props => props.theme.border.radius.md}px;
   background-color: ${props => props.theme.color.background};
 `;
 
@@ -188,19 +188,19 @@ export const InputBase = forwardRef<TextInput, InputBaseProps>(
       () => ({
         top:
           inputState === "blurred" && !props.placeholder
-            ? theme.size.font.md
+            ? theme.font.size.md
             : FOCUSSED_LABEL_TOP,
         fontSize:
           inputState === "blurred" && !props.placeholder
-            ? theme.size.font.sm
-            : theme.size.font.xs
+            ? theme.font.size.sm
+            : theme.font.size.xs
       }),
       [
         inputState,
         props.placeholder,
-        theme.size.font.md,
-        theme.size.font.sm,
-        theme.size.font.xs
+        theme.font.size.md,
+        theme.font.size.sm,
+        theme.font.size.xs
       ]
     );
 
@@ -222,8 +222,8 @@ export const InputBase = forwardRef<TextInput, InputBaseProps>(
       props.placeholder,
       backgroundOpacity,
       labelProps,
-      theme.size.font.sm,
-      theme.size.font.xs,
+      theme.font.size.sm,
+      theme.font.size.xs,
       getLabelStyle,
       getBackgroundOpacity
     ]);

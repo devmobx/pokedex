@@ -22,7 +22,7 @@ const ButtonBody = styled(AnimatedPressable)<ButtonBodyProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border-radius: ${props => props.theme.radius.md}px;
+  border-radius: ${props => props.theme.border.radius.md}px;
   height: ${HEIGHT}px;
   width: 100%;
   ${props => getButtonStyle(props.kind, !!props.disabled)};

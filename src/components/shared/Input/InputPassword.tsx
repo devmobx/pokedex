@@ -70,7 +70,7 @@ const EyeIcon = styled(Eye).attrs<EyeIconProps>(props => ({
         : props.theme.color.neutral;
     }
   })(),
-  size: props.theme.size.icon.md
+  size: props.theme.icon.size.md
 }))``;
 
 const EyeSlashIcon = styled(EyeSlash).attrs<EyeIconProps>(props => ({
@@ -85,7 +85,7 @@ const EyeSlashIcon = styled(EyeSlash).attrs<EyeIconProps>(props => ({
         : props.theme.color.neutral;
     }
   })(),
-  size: props.theme.size.icon.md
+  size: props.theme.icon.size.md
 }))``;
 
 export const InputPassword = forwardRef<TextInput, InputPasswordProps>(

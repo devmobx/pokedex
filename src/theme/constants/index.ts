@@ -1,4 +1,4 @@
-export { font } from './font';
-export { radius } from './radius';
-export { size } from './size';
-export { spacing } from './spacing';
+export { border } from "./border";
+export { font } from "./font";
+export { icon } from "./icon";
+export { spacing } from "./spacing";

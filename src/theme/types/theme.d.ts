@@ -11,13 +11,25 @@ export type FontFamily = "poppins" | "inter";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type FontSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type FontSize =
+  | "xxs"
+  | "xs"
+  | "sm"
+  | "base"
+  | "md"
+  | "lg"
+  | "xl"
+  | "xxl"
+  | "display"
+  | "hero";
 
-export type BorderSize = "xs";
+export type BorderSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type Spacing = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "none";
 
-export type Radius = "sm" | "md" | "lg";
+export type Radius = "none" | "sm" | "md" | "lg" | "xl" | "full";
+
+export type LineHeight = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type Color =
   | "primary1"
@@ -46,19 +58,23 @@ export type Color =
 export type Theme = {
   color: Record<Color, string>;
   spacing: Record<Spacing, number>;
-  radius: Record<Radius, number>;
-  font: {
-    inter: Record<InterVariantKey, InterVariant>;
-    poppins: Record<PoppinsVariantKey, PoppinsVariant>;
+  border: {
+    size: Record<BorderSize, number>;
+    radius: Record<Radius, number>;
   };
-  size: {
-    icon: Record<IconSize, number>;
-    font: Record<FontSize, number>;
-    border: Record<BorderSize, number>;
+  font: {
+    family: {
+      inter: Record<InterVariantKey, InterVariant>;
+      poppins: Record<PoppinsVariantKey, PoppinsVariant>;
+    };
+    size: Record<FontSize, number>;
+    lineHeight: Record<LineHeight, number>;
+  };
+  icon: {
+    size: Record<IconSize, number>;
   };
 };
 
 declare module "styled-components/native" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export interface DefaultTheme extends Theme {}
 }

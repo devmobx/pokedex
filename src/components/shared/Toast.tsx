@@ -14,7 +14,7 @@ const HEIGHT = 70;
 const ToastContainer = styled(Pressable)<ToastContainerProps>`
   width: 90%;
   padding-horizontal: ${props => props.theme.spacing.md}px;
-  border-radius: ${props => props.theme.radius.md}px;
+  border-radius: ${props => props.theme.border.radius.md}px;
   align-items: flex-start;
   justify-content: center;
   min-height: ${HEIGHT}px;

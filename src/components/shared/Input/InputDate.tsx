@@ -40,7 +40,7 @@ const CalendarIcon = styled(CalendarBlank).attrs<CalendarIconProps>(props => ({
   color: props.isFocused
     ? props.theme.color.primary1
     : props.theme.color.neutralTint,
-  size: props.theme.size.icon.md
+  size: props.theme.icon.size.md
 }))``;
 
 export const InputDate = forwardRef<TextInput, InputDateProps>(

@@ -23,7 +23,14 @@ export default function StartScreen() {
     <ScreenContainer edges={["top", "bottom"]}>
       <Content>
         <HeaderWrapper>
-          <FontText>{t("base:product_name")}</FontText>
+          <FontText
+            fontFamily="inter"
+            fontVariant="bold"
+            color="primary2"
+            fontSize="xl"
+          >
+            {t("base:product_name")}
+          </FontText>
         </HeaderWrapper>
         <Button marginTop="auto" onPress={() => router.navigate("/(tabs)")}>
           Enter

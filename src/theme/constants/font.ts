@@ -57,6 +57,27 @@ const poppins = {
 export type PoppinsVariantKey = keyof typeof poppins;
 
 export const font: Theme["font"] = {
-  inter,
-  poppins
+  family: {
+    inter,
+    poppins
+  },
+  size: {
+    xxs: 10,
+    xs: 12,
+    sm: 14,
+    base: 16,
+    md: 18,
+    lg: 20,
+    xl: 24,
+    xxl: 30,
+    display: 36,
+    hero: 48
+  },
+  lineHeight: {
+    xs: 18,
+    sm: 20,
+    md: 24,
+    lg: 28,
+    xl: 32
+  }
 } as const;
