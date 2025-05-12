@@ -1,11 +1,10 @@
-import { FontText, Screen, Wrapper } from "@/components/shared";
+import PokeballBg from "@/assets/svg/pokeball_bg.svg";
+import { Graphic, Screen } from "@/components/shared";
 
 export default function HomeScreen() {
   return (
     <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
-      <Wrapper backgroundColor="male" fullWidth flex={1}>
-        <FontText>Home</FontText>
-      </Wrapper>
+      <Graphic as={PokeballBg} />
     </Screen.Container>
   );
 }

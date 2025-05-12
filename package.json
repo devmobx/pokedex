@@ -18,7 +18,8 @@
     "generate-env-ts": "node ./scripts/generate-env-ts",
     "watchman:reset": "watchman watch-del-all && watchman watch-project \"$(pwd)\"",
     "merge-i18n-resources": "i18next-resources-for-ts toc -i ./src/i18n/translations/en -o ./src/i18n/resources/en.ts && i18next-resources-for-ts toc -i ./src/i18n/translations/fr -o ./src/i18n/resources/fr.ts",
-    "type-i18n-resources": "i18next-resources-for-ts interface -i ./src/i18n/translations/en -o ./src/i18n/resources/index.d.ts"
+    "type-i18n-resources": "i18next-resources-for-ts interface -i ./src/i18n/translations/en -o ./src/i18n/resources/index.d.ts",
+    "expo:install": "yarn dlx expo install"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -53,7 +54,8 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
-    "react-native-svg": "^15.11.2",
+    "react-native-svg": "15.11.2",
+    "react-native-svg-transformer": "^1.5.1",
     "react-native-toast-message": "^2.3.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
