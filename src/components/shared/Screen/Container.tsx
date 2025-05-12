@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Spacing, styled } from "@/theme";
 
-import { FocusAwareStatusBar } from "./FocusAwareStatusbar";
+import { FocusAwareStatusBar } from "../FocusAwareStatusbar";
 
 type BackgroundTypeProps = {
   backgroundType?: "default" | "muted" | "primary";
@@ -14,7 +14,7 @@ type ScrollableProps = {
   scrollable?: boolean;
 };
 
-type Props = {
+type ContainerProps = {
   paddingHorizontal?: Spacing;
   centerContent?: boolean;
 } & BackgroundTypeProps &
@@ -34,9 +34,9 @@ const ScrollWrapper = styled(ScrollView).attrs(({ centerContent }) => ({
   flex: 1;
 `;
 
-const Container = styled(SafeAreaView).attrs(props => ({
+const Content = styled(SafeAreaView).attrs(props => ({
   edges: props.edges ?? []
-}))<Props>`
+}))<ContainerProps>`
   flex: 1;
   background-color: ${props => props.theme.color.background};
   ${({ centerContent }) => (centerContent ? "align-items: center;" : "")}
@@ -56,19 +56,17 @@ const AppStatusBar = styled(FocusAwareStatusBar).attrs<BackgroundTypeProps>(
   })
 )``;
 
-type ScreenContainerProps<T extends ElementType> = ComponentProps<
-  typeof Container
-> & {
+type Props<T extends ElementType> = ComponentProps<typeof Content> & {
   as?: T;
 };
 
-export const ScreenContainer = <T extends ElementType = typeof SafeAreaView>({
+export const Container = <T extends ElementType = typeof SafeAreaView>({
   dismissKeyboardOnPress,
   scrollable = true,
   centerContent,
   children,
   ...props
-}: ScreenContainerProps<T>) => {
+}: Props<T>) => {
   const content = scrollable ? (
     <ScrollWrapper centerContent={centerContent}>{children}</ScrollWrapper>
   ) : (
@@ -77,14 +75,14 @@ export const ScreenContainer = <T extends ElementType = typeof SafeAreaView>({
   return dismissKeyboardOnPress ? (
     <FlexOnePressable accessible={false} onPress={Keyboard.dismiss}>
       {Platform.OS === "ios" && <AppStatusBar />}
-      <Container centerContent={scrollable ? false : centerContent} {...props}>
+      <Content centerContent={scrollable ? false : centerContent} {...props}>
         {content}
-      </Container>
+      </Content>
     </FlexOnePressable>
   ) : (
     <>
       {Platform.OS === "ios" && <AppStatusBar />}
-      <Container {...props}>{content}</Container>
+      <Content {...props}>{content}</Content>
     </>
   );
 };

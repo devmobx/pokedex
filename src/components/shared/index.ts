@@ -6,5 +6,5 @@ export * from "./Input";
 export * from "./KeyboardAvoidingContainer";
 export * from "./Link";
 export * from "./ParsedText";
-export * from "./ScreenContainer";
+export * from "./Screen";
 export * from "./Toast";

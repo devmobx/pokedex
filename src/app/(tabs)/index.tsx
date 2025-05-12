@@ -1,4 +1,4 @@
-import { FontText, ScreenContainer } from "@/components/shared";
+import { FontText, Screen } from "@/components/shared";
 import { styled } from "@/theme";
 
 const HeaderWrapper = styled.View`
@@ -8,10 +8,10 @@ const HeaderWrapper = styled.View`
 
 export default function HomeScreen() {
   return (
-    <ScreenContainer edges={["top", "bottom"]}>
+    <Screen.Container paddingHorizontal="md" edges={["top", "bottom"]}>
       <HeaderWrapper>
         <FontText>Home</FontText>
       </HeaderWrapper>
-    </ScreenContainer>
+    </Screen.Container>
   );
 }
