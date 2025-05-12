@@ -1,10 +1,10 @@
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import ToastBase, { ToastConfig } from "react-native-toast-message";
 
 import { useThemeStore } from "@/_zustand";
 import { Toast } from "@/components/shared";
+import { RootNavigationStack } from "@/navigation";
 import { getThemeByColorScheme, ThemeProvider, useLoadFonts } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
@@ -17,7 +17,6 @@ export const toastConfig: ToastConfig = {
 };
 
 export default function RootLayout() {
-  // useNavigationLogger();
   const colorScheme = useThemeStore.use.colorScheme();
   const fontsLoaded = useLoadFonts();
 
@@ -29,10 +28,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={getThemeByColorScheme(colorScheme)}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <RootNavigationStack />
       <ToastBase config={toastConfig} />
     </ThemeProvider>
   );
