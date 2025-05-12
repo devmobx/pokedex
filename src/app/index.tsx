@@ -28,8 +28,15 @@ export default function StartScreen() {
           {t("base:product_name")}
         </FontText>
       </HeaderWrapper>
-      <Button marginTop="auto" onPress={() => router.navigate("/(tabs)")}>
-        Enter
+      <Button
+        marginTop="auto"
+        onPress={() => router.navigate("/(tabs)")}
+        labelColor="white"
+        fontSize="md"
+        fontVariant="bold"
+        backgroundColor="primary3"
+      >
+        ENTER
       </Button>
     </Screen.Container>
   );
