@@ -8,3 +8,4 @@ export * from "./Link";
 export * from "./ParsedText";
 export * from "./Screen";
 export * from "./Toast";
+export * from "./Wrapper";

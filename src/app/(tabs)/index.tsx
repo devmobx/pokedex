@@ -1,17 +1,11 @@
-import { FontText, Screen } from "@/components/shared";
-import { styled } from "@/theme";
-
-const HeaderWrapper = styled.View`
-  align-items: center;
-  justify-content: center;
-`;
+import { FontText, Screen, Wrapper } from "@/components/shared";
 
 export default function HomeScreen() {
   return (
-    <Screen.Container paddingHorizontal="md" edges={["top", "bottom"]}>
-      <HeaderWrapper>
+    <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
+      <Wrapper backgroundColor="male" fullWidth flex={1}>
         <FontText>Home</FontText>
-      </HeaderWrapper>
+      </Wrapper>
     </Screen.Container>
   );
 }
