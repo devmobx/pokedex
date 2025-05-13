@@ -13,6 +13,7 @@ export const useHeaderConfig = () => {
     },
     headerTitle: "",
     headerTintColor: theme.color.contrast,
-    headerBackTitleVisible: false
+    headerBackTitleVisible: false,
+    headerBackButtonDisplayMode: "minimal"
   };
 };

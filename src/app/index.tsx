@@ -1,13 +1,7 @@
 import { useRouter } from "expo-router";
 
-import { Button, FontText, Screen } from "@/components/shared";
+import { Box, Button, FontText, Screen } from "@/components/shared";
 import { useTranslation } from "@/i18n";
-import { styled } from "@/theme";
-
-const HeaderWrapper = styled.View`
-  flex: 1;
-  justify-content: center;
-`;
 
 export default function StartScreen() {
   const router = useRouter();
@@ -18,7 +12,7 @@ export default function StartScreen() {
       paddingHorizontal="xl"
       centerContent
     >
-      <HeaderWrapper>
+      <Box flex={1} justifyContent="center">
         <FontText
           fontFamily="inter"
           fontVariant="black"
@@ -27,7 +21,7 @@ export default function StartScreen() {
         >
           {t("base:product_name")}
         </FontText>
-      </HeaderWrapper>
+      </Box>
       <Button
         marginTop="auto"
         onPress={() => router.navigate("/(tabs)")}
