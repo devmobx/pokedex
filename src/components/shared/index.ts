@@ -1,4 +1,5 @@
 export * from "./AnimatedPressable";
+export * from "./BackgroundPokeball";
 export * from "./Box";
 export * from "./Button";
 export * from "./FocusAwareStatusbar";

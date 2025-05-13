@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 
-import PokeballBg from "@/assets/svg/pokeball_bg.svg";
-import { Box, Button, FontText, Graphic, Screen } from "@/components/shared";
+import { Box, Button, FontText, Screen } from "@/components/shared";
 import { useTranslation } from "@/i18n";
 
 export default function StartScreen() {
@@ -13,7 +12,6 @@ export default function StartScreen() {
       paddingHorizontal="xl"
       centerContent
     >
-      <Graphic as={PokeballBg} />
       <Box flex={1} justifyContent="center">
         <FontText
           fontFamily="inter"
@@ -26,7 +24,7 @@ export default function StartScreen() {
       </Box>
       <Button
         marginTop="auto"
-        onPress={() => router.navigate("/test")}
+        onPress={() => router.navigate("/(tabs)")}
         labelColor="white"
         fontSize="md"
         fontVariant="bold"
