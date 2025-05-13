@@ -5,7 +5,7 @@ type Props = {
   onPress: () => void;
 };
 
-export const HeaderMenuButton = ({ onPress }: Props) => {
+export const HeaderRightButton = ({ onPress }: Props) => {
   return (
     <AnimatedPressable onPress={onPress}>
       <Graphic as={MenuBurger} />

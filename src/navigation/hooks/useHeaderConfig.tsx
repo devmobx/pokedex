@@ -1,7 +1,16 @@
+import { useRouter } from "expo-router";
+
 import { useTheme } from "@/theme";
+
+import { HeaderLeftButton } from "../components";
+
+type HeaderLeftProps = {
+  canGoBack: boolean;
+};
 
 export const useHeaderConfig = () => {
   const theme = useTheme();
+  const router = useRouter();
 
   return {
     headerShown: true,
@@ -11,6 +20,8 @@ export const useHeaderConfig = () => {
       backgroundColor: "transparent",
       elevation: 0
     },
+    headerLeft: ({ canGoBack }: HeaderLeftProps) =>
+      canGoBack ? <HeaderLeftButton onPress={() => router.back()} /> : null,
     headerTitle: "",
     headerTintColor: theme.color.contrast,
     headerBackTitleVisible: false,

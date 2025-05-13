@@ -4,7 +4,7 @@ import PokeballBg from "@/assets/svg/pokeball_bg.svg";
 import { Box, Button, FontText, Graphic, Screen } from "@/components/shared";
 import { useTranslation } from "@/i18n";
 
-export default function StartScreen() {
+export default function TestScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   return (
@@ -26,7 +26,7 @@ export default function StartScreen() {
       </Box>
       <Button
         marginTop="auto"
-        onPress={() => router.navigate("/test")}
+        onPress={() => router.navigate("/(tabs)")}
         labelColor="white"
         fontSize="md"
         fontVariant="bold"
