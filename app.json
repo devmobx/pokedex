@@ -10,7 +10,8 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.localtoast3000.pokedex"
+      "bundleIdentifier": "com.localtoast3000.pokedex",
+      "appleTeamId": "536D629C7A"
     },
     "android": {
       "adaptiveIcon": {

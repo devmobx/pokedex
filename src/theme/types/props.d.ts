@@ -1,6 +1,14 @@
 import { ViewStyle } from "react-native";
 
-import { BorderSize, Color, Radius, Spacing } from "./theme";
+import { InterVariantKey, PoppinsVariantKey } from "../constants/font";
+import {
+  BorderSize,
+  Color,
+  FontFamily,
+  FontSize,
+  Radius,
+  Spacing
+} from "./theme";
 
 // --- WIDTH & HEIGHT ---
 export type WidthProps =
@@ -62,3 +70,21 @@ export type SpacingProps = {
   paddingHorizontal?: Spacing;
   paddingVertical?: Spacing;
 };
+
+// --- TEXT ---
+
+export type FontFamilyProps =
+  | {
+      fontFamily?: Extract<FontFamily, "inter">;
+      fontVariant?: InterVariantKey;
+    }
+  | {
+      fontFamily?: Extract<FontFamily, "poppins">;
+      fontVariant?: PoppinsVariantKey;
+    };
+
+export type FontProps = {
+  color?: Color;
+  fontSize?: FontSize;
+  lineHeight?: number;
+} & FontFamilyProps;
