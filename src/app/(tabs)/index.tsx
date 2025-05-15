@@ -7,13 +7,8 @@ export default function HomeScreen() {
   return (
     <>
       <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
-        <Box>
-          <FontText
-            fontFamily="inter"
-            fontVariant="bold"
-            fontSize="lg"
-            color="contrast"
-          >
+        <Box marginVertical="xxl">
+          <FontText fontFamily="poppins" fontVariant="bold" fontSize="display">
             {t("home:header")}
           </FontText>
         </Box>

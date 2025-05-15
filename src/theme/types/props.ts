@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 import { InterVariantKey, PoppinsVariantKey } from "../constants/font";
 import {
@@ -38,9 +38,14 @@ export type FlexProps = {
   alignSelf?: ViewStyle["alignSelf"];
 };
 
-// --- BORDER & BACKGROUND ---
-export type ViewStyleProps = {
+// --- BACKGROUND ---
+
+export type BackgroundProp = {
   backgroundColor?: Color;
+};
+
+// --- BORDER ---
+export type BorderProps = {
   borderRadius?: Radius;
   borderColor?: Color;
   borderWidth?: BorderSize;
@@ -86,5 +91,6 @@ export type FontFamilyProps =
 export type FontProps = {
   color?: Color;
   fontSize?: FontSize;
-  lineHeight?: number;
+  lineHeight?: TextStyle["lineHeight"];
+  textAlign?: TextStyle["textAlign"];
 } & FontFamilyProps;

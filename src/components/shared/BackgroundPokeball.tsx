@@ -12,6 +12,6 @@ export const BackgroundPokeball = () => (
       transform: [{ translateX: 95 }, { translateY: -50 }]
     }}
   >
-    <Graphic as={PokeballBg} />
+    <Graphic color="black" as={PokeballBg} />
   </Box>
 );

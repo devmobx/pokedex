@@ -9,6 +9,7 @@ export const createFontStyles = (
     fontSize,
     fontFamily = "poppins",
     fontVariant = "regular",
+    textAlign,
     lineHeight
   } = props;
 
@@ -20,6 +21,7 @@ export const createFontStyles = (
     color: ${resolvedColor};
     font-size: ${resolvedFontSize}px;
     font-family: ${resolvedFontFamily};
+    text-align: ${textAlign};
     ${lineHeight ? `line-height: ${lineHeight}px;` : ""}
   `;
 };

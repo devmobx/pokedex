@@ -1,10 +1,10 @@
 import { css } from "styled-components/native";
 
-import { ViewStyleProps } from "../types/props";
+import { BorderProps } from "../types/props";
 import { Theme } from "../types/theme";
 
 export const createBorderStyles = (
-  props: ViewStyleProps,
+  props: BorderProps,
   theme: Theme
 ): ReturnType<typeof css> => {
   const {

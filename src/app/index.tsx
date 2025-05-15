@@ -19,7 +19,7 @@ export default function StartScreen() {
           color="primary2"
           fontSize="hero"
         >
-          {t("base:product_name")}
+          {t("base:pokedex")}
         </FontText>
       </Box>
       <Button

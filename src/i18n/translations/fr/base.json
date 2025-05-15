@@ -1,3 +1,8 @@
 {
-  "product_name": "Pokédex"
+  "pokedex": "Pokédex",
+  "abilities": "Capacités",
+  "locations": "Lieux",
+  "moves": "Capacités",
+  "items": "Objets",
+  "type_charts": "Tableaux des types"
 }

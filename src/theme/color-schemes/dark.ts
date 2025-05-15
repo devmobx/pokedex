@@ -22,5 +22,6 @@ export const darkScheme: Theme["color"] = {
   errorTint: "#F8CFC9",
   neutral: "#757897",
   neutralTint: "#F4F4FE",
+
   shadow: "#00000066"
 } as const;

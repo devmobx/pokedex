@@ -6,17 +6,49 @@ import Animated, {
   withTiming
 } from "react-native-reanimated";
 
-import { SpacingProps, styled } from "@/theme";
-import { createSpacingStyles } from "@/theme/utils";
+import {
+  BackgroundProp,
+  BorderProps,
+  css,
+  FlexProps,
+  HeightProps,
+  PositionProps,
+  SpacingProps,
+  styled,
+  WidthProps
+} from "@/theme";
+import {
+  createBackgroundStyle,
+  createBorderStyles,
+  createFlexStyles,
+  createPositionStyles,
+  createSizeStyles,
+  createSpacingStyles
+} from "@/theme/utils";
+
+type StyleProps = SpacingProps &
+  WidthProps &
+  HeightProps &
+  PositionProps &
+  FlexProps &
+  BackgroundProp &
+  BorderProps;
 
 export type AnimatedPressableProps = PressableProps & {
   onPress?: ((event?: GestureResponderEvent) => void) | (() => Promise<void>);
-} & SpacingProps;
+} & StyleProps;
 
 const AnimatedPressableBody = Animated.createAnimatedComponent(Pressable);
 
-const Body = styled(AnimatedPressableBody)`
-  ${({ theme, ...props }) => createSpacingStyles(props, theme)};
+const Body = styled(AnimatedPressableBody)<StyleProps>`
+  ${({ theme, ...props }) => css`
+    ${createSpacingStyles(props, theme)}
+    ${createSizeStyles(props)}
+    ${createPositionStyles(props)}
+    ${createFlexStyles(props)}
+    ${createBackgroundStyle(props, theme)}
+    ${createBorderStyles(props, theme)}
+  `}
 `;
 
 export const AnimatedPressable = ({

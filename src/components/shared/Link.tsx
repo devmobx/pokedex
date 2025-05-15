@@ -1,22 +1,29 @@
-import { Href, useRouter } from 'expo-router';
+import { Href, useRouter } from "expo-router";
 
-import { Color } from '@/theme';
+import { Color } from "@/theme";
 
-import { AnimatedPressable, AnimatedPressableProps } from './AnimatedPressable';
-import { FontText } from './FontText';
+import { TextStyle } from "react-native";
+import { AnimatedPressable, AnimatedPressableProps } from "./AnimatedPressable";
+import { FontText } from "./FontText";
 
 type Props = {
   route: Href;
   children: string;
   color?: Color;
-  centered?: boolean;
-} & Omit<AnimatedPressableProps, 'onPress'>;
+  textAlign?: TextStyle["textAlign"];
+} & Omit<AnimatedPressableProps, "onPress" | "fullWidth" | "fullHeight">;
 
-export const Link = ({ route, color, centered, children, ...props }: Props) => {
+export const Link = ({
+  route,
+  color,
+  textAlign,
+  children,
+  ...props
+}: Props) => {
   const router = useRouter();
   return (
     <AnimatedPressable {...props} onPress={() => router.push(route)}>
-      <FontText centered={centered} color={color}>
+      <FontText color={color} {...(textAlign ? { textAlign } : {})}>
         {children}
       </FontText>
     </AnimatedPressable>

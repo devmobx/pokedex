@@ -1,13 +1,14 @@
 import { ViewProps } from "react-native";
 
 import {
+  BackgroundProp,
+  BorderProps,
   css,
   FlexProps,
   HeightProps,
   PositionProps,
   SpacingProps,
   styled,
-  ViewStyleProps,
   WidthProps
 } from "@/theme";
 import {
@@ -25,7 +26,8 @@ export type BoxProps = Omit<ViewProps, "style"> &
   HeightProps &
   PositionProps &
   FlexProps &
-  ViewStyleProps;
+  BackgroundProp &
+  BorderProps;
 
 export const Box = styled.View<BoxProps>`
   ${({ theme, ...props }) => css`

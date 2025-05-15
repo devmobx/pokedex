@@ -1,3 +1,8 @@
 {
-  "product_name": "Pokédex"
+  "pokedex": "Pokédex",
+  "abilities": "Abilities",
+  "locations": "Locations",
+  "moves": "Moves",
+  "items": "Items",
+  "type_charts": "Type Charts"
 }
