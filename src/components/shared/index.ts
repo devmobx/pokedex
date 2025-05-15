@@ -5,6 +5,7 @@ export * from "./Button";
 export * from "./FocusAwareStatusbar";
 export * from "./FontText";
 export * from "./Graphic";
+export * from "./Header";
 export * from "./Input";
 export * from "./KeyboardAvoidingContainer";
 export * from "./Link";

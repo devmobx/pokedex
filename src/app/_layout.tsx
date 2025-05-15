@@ -23,7 +23,7 @@ const RootNavigationStack = () => {
   return (
     <Stack screenOptions={headerConfig}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="pokedex" />
     </Stack>
   );
 };

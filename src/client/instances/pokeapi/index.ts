@@ -1,0 +1,20 @@
+import axios from "axios";
+
+import { Env } from "@/env";
+
+import { handleApiCall } from "../../handlers";
+import { RequestPayload } from "../../types";
+
+const pokeapi = axios.create({
+  baseURL: Env.POKEAPI_BASE_URL,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+export const getPokemon = ({
+  values,
+  handlers
+}: RequestPayload<{ pokemon: string }, unknown>) =>
+  handleApiCall(pokeapi.get(`/pokemon/${values.pokemon}`), handlers);

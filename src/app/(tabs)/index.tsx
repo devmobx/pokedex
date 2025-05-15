@@ -9,7 +9,7 @@ export default function HomeScreen() {
       <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
         <Box marginVertical="xxl">
           <FontText fontFamily="poppins" fontVariant="bold" fontSize="display">
-            {t("home:header")}
+            {t("base:pokedex")}
           </FontText>
         </Box>
       </Screen.Container>

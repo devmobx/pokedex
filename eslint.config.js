@@ -76,7 +76,8 @@ module.exports = defineConfig([
       "*.js",
       "build",
       "node_modules",
-      "commands"
+      "commands",
+      "*/env.ts"
     ]
   }
 ]);

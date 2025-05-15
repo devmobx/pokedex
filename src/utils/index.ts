@@ -7,3 +7,4 @@ export * from "./functions";
 export * from "./isSmallDevice";
 export * from "./objects";
 export * from "./strings";
+export * from "./toast";
