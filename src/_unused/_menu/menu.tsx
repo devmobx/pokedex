@@ -16,7 +16,7 @@ export default function MenuScreen() {
               fontVariant="bold"
               fontSize="display"
             >
-              {t("home:header")}
+              {"What Pokémon are you looking for ?"}
             </FontText>
           </Box>
           <Box flexDirection="row" width="100%">

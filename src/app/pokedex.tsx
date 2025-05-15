@@ -53,22 +53,19 @@ export default function PokedexScreen() {
         />
         <Button
           backgroundColor="primary2"
+          marginTop="xxl"
           labelColor="white"
           loading={isSubmitting}
           onPress={handleSubmit(({ pokemon }) => {
             Keyboard.dismiss();
             return new Promise<void>(resolve => {
               Pokeapi.getPokemon({
-                values: { pokemon },
-                handlers: {
-                  onSuccess: res => {
-                    console.log("getPokemon RESPONSE", res);
-                    resolve();
-                  },
-                  onFailure: err => {
-                    console.error("getPokemon ERROR", err);
-                    resolve();
-                  }
+                body: { pokemon },
+                onSuccess: () => {
+                  resolve();
+                },
+                onFailure: () => {
+                  resolve();
                 }
               });
             });

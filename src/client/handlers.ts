@@ -1,33 +1,47 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse, isAxiosError } from "axios";
 
+import { languageStore } from "@/_zustand";
 import { showToast, styledLog } from "@/utils";
 
+import { ErrorCode, errorMessages } from "./errors";
 import { RequestPayload } from "./types";
+
+const getRequestErrorCode = (code: AxiosError["code"]): ErrorCode => {
+  if (ErrorCode?.[code as ErrorCode]) {
+    return code as ErrorCode;
+  } else {
+    return "DEFAULT";
+  }
+};
 
 export const handleApiCall = async <T>(
   request: Promise<AxiosResponse<T>>,
-  handlers: RequestPayload<T, AxiosResponse<T, unknown>>["handlers"]
+  handlers: Omit<RequestPayload<T, AxiosResponse<T, unknown>>, "body">
 ) => {
+  const TAG = "AXIOS";
   try {
     const response = await request;
-    styledLog("AXIOS", { text: "lightblue", background: "blue" }, response);
+    styledLog(TAG, { text: "lightblue", background: "blue" }, response);
     handlers?.onSuccess?.(response);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
+      const errorCode = ErrorCode[getRequestErrorCode(error.code)];
+      const language = languageStore.getState().language;
+
       styledLog(
-        "AXIOS",
+        TAG,
         { text: "#FFCCCC", background: "#8B0000" },
-        error.response?.data ?? error.message
+        error.toJSON()
       );
       showToast({
         type: "error",
-        text1: "API Error",
-        text2: "A problem with the api call"
+        text1: errorCode,
+        text2: errorMessages[language][errorCode]
       });
       handlers?.onFailure?.(error);
     } else {
       console.error("handleApiCall UNKNOWN_ERROR:", error);
-      handlers?.onFailure?.("UNKNOWN_ERROR");
+      handlers?.onFailure?.(error as string);
     }
   }
 };
