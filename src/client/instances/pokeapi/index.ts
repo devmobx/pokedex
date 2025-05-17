@@ -1,11 +1,11 @@
-import { create } from "axios";
+import axios from "axios";
 
 import { Env } from "@/env";
 
 import { handleApiCall } from "../../handlers";
 import { RequestPayload } from "../../types";
 
-const pokeapi = create({
+const pokeapi = axios.create({
   baseURL: Env.POKEAPI_BASE_URL,
   timeout: 10000,
   headers: {

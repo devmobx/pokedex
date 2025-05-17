@@ -1,4 +1,4 @@
-package com.localtoast3000.pokedex
+package com.devmotix.pokedex
 
 import android.app.Application
 import android.content.res.Configuration

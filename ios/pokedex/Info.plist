@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>pokedex</string>
-          <string>com.localtoast3000.pokedex</string>
+          <string>com.devmotix.pokedex</string>
         </array>
       </dict>
     </array>

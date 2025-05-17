@@ -1,4 +1,4 @@
-package com.localtoast3000.pokedex
+package com.devmotix.pokedex
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
