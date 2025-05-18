@@ -13,8 +13,9 @@ const pokeapi = axios.create({
   }
 });
 
-export const getPokemon = ({
-  body,
-  ...handlers
-}: RequestPayload<{ pokemon: string }, unknown>) =>
-  handleApiCall(pokeapi.get(`/pokemon/${body.pokemon}`), handlers);
+type GetPokemonRequest = RequestPayload<{ pokemon: string }, unknown>;
+
+export const getPokemon = ({ body, ...handlers }: GetPokemonRequest) => {
+  const request = pokeapi.get(`/pokemon/${body.pokemon}`);
+  handleApiCall(request, handlers, ["ERR_BAD_REQUEST"]);
+};

@@ -12,7 +12,7 @@ export default function StartScreen() {
       paddingHorizontal="xl"
       centerContent
     >
-      <Box flex={1} justifyContent="center">
+      <Box flex={1} justifyContent="center" alignItems="center">
         <FontText
           fontFamily="inter"
           fontVariant="black"
@@ -21,6 +21,7 @@ export default function StartScreen() {
         >
           {t("base:pokedex")}
         </FontText>
+        {/* <Graphic as={PokeballColor} width={300} height={300} /> */}
       </Box>
       <Button
         marginTop="auto"

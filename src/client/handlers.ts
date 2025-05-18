@@ -16,7 +16,8 @@ const getRequestErrorCode = (code: AxiosError["code"]): ErrorCode => {
 
 export const handleApiCall = async <T>(
   request: Promise<AxiosResponse<T>>,
-  handlers: Omit<RequestPayload<T, AxiosResponse<T, unknown>>, "body">
+  handlers: Omit<RequestPayload<T, AxiosResponse<T, unknown>>, "body">,
+  toastSuppressors?: ErrorCode[]
 ) => {
   const TAG = "AXIOS";
   try {
@@ -33,11 +34,13 @@ export const handleApiCall = async <T>(
         { text: "#FFCCCC", background: "#8B0000" },
         error.toJSON()
       );
-      showToast({
-        type: "error",
-        text1: errorCode,
-        text2: errorMessages[language][errorCode]
-      });
+      if (!toastSuppressors?.includes(errorCode)) {
+        showToast({
+          type: "error",
+          text1: errorCode,
+          text2: errorMessages[language][errorCode]
+        });
+      }
       handlers?.onFailure?.(error);
     } else {
       console.error("handleApiCall UNKNOWN_ERROR:", error);

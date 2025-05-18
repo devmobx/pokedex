@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Keyboard } from "react-native";
 
 import { Pokeapi } from "@/client";
+import { ErrorCode } from "@/client/errors";
 import {
   BackgroundPokeball,
   Button,
@@ -10,6 +11,8 @@ import {
   Screen
 } from "@/components/shared";
 import { useTranslation } from "@/i18n";
+import { showToast } from "@/utils";
+import { isAxiosError } from "axios";
 
 export default function PokedexScreen() {
   const { t, language } = useTranslation();
@@ -64,8 +67,18 @@ export default function PokedexScreen() {
                 onSuccess: () => {
                   resolve();
                 },
-                onFailure: () => {
+                onFailure: error => {
                   resolve();
+                  if (
+                    isAxiosError(error) &&
+                    error.code === ErrorCode.ERR_BAD_REQUEST
+                  ) {
+                    showToast({
+                      type: "error",
+                      text1: t("pokedex:notFound"),
+                      text2: t("pokedex:notFoundMsg")
+                    });
+                  }
                 }
               });
             });
