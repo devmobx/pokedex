@@ -1,19 +1,23 @@
-import { BackgroundPokeball, Box, FontText, Screen } from "@/components/shared";
+import {
+  Box,
+  FontText,
+  PokeballBgScreenContent,
+  Screen
+} from "@/components/shared";
 import { useTranslation } from "@/i18n";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
 
   return (
-    <>
-      <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
+    <Screen.Container edges={["bottom"]}>
+      <PokeballBgScreenContent>
         <Box marginVertical="xxl">
           <FontText fontFamily="poppins" fontVariant="bold" fontSize="display">
             {t("base:pokedex")}
           </FontText>
         </Box>
-      </Screen.Container>
-      <BackgroundPokeball />
-    </>
+      </PokeballBgScreenContent>
+    </Screen.Container>
   );
 }

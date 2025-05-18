@@ -17,6 +17,7 @@ import {
 import { styled } from "@/theme";
 import { formatStringToEuDateString } from "@/utils";
 
+import { AnimatedPressable } from "../AnimatedPressable";
 import { InputBase } from "./InputBase";
 
 type InputDateProps = Pick<
@@ -31,7 +32,7 @@ type DateFieldProps = {
 
 type CalendarIconProps = Pick<DateFieldProps, "isFocused">;
 
-const InputIconButton = styled.Pressable`
+const InputIconButton = styled(AnimatedPressable)`
   height: 100%;
   justify-content: center;
 `;
@@ -82,7 +83,7 @@ export const InputDate = forwardRef<TextInput, InputDateProps>(
         label={label}
         ref={inputRef}
         keyboardType="number-pad"
-        icon={
+        rightIcon={
           <InputIconButton onPress={onIconPress}>
             <CalendarIcon isFocused={isFocused} />
           </InputIconButton>

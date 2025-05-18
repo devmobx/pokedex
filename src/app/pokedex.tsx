@@ -37,7 +37,6 @@ export default function PokedexScreen() {
           key="pokemon"
           control={control}
           name="pokemon"
-          rules={{ required: t("base:requiredField") }}
           render={({
             field: { ref, onChange, ...field },
             fieldState: { error }
@@ -45,12 +44,14 @@ export default function PokedexScreen() {
             <Input
               ref={ref}
               lang={language}
-              type="text"
+              type="search"
               label="Search for pokemon"
               onChangeText={onChange}
               {...field}
               error={error}
-              keyboardType="default"
+              onFilterIconPress={() => {
+                console.log("Filter pressed");
+              }}
             />
           )}
         />

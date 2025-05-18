@@ -33,7 +33,8 @@ export type InputBaseProps = {
   lang: SupportedLanguages;
   label: string;
   error?: FieldError;
-  icon?: ReactElement;
+  leftIcon?: ReactElement;
+  rightIcon?: ReactElement;
   value?: string;
   inputStyle?: StyleProp<TextStyle>;
   name: string;
@@ -71,8 +72,14 @@ type AnimatedLabelProps = ViewProps &
     hasError: boolean;
   };
 
-const AnimatedLabel = styled(Animated.Text)<AnimatedLabelProps>`
+const AnimatedLabel = styled(Animated.Text)<
+  AnimatedLabelProps & Pick<InputBaseProps, "leftIcon">
+>`
   position: absolute;
+  ${props =>
+    props.leftIcon
+      ? `left: ${props.theme.spacing.lg + props.theme.spacing.lg};`
+      : ""}
   font-family: ${props =>
     ["focused", "inactive"].includes(props.inputState)
       ? props.theme.font.family.poppins.medium
@@ -86,7 +93,7 @@ const AnimatedLabel = styled(Animated.Text)<AnimatedLabelProps>`
         : props.theme.color.contrast;
     } else {
       return ["focused"].includes(props.inputState)
-        ? props.theme.color.error
+        ? props.theme.color.contrast
         : props.theme.color.neutral;
     }
   }};
@@ -104,13 +111,20 @@ const InputField = styled(TextInput)<InputFieldProps>`
     inputState === "focused" ? theme.color.contrast : theme.color.neutral};
 `;
 
-const InputIconSlot = styled.View`
+const RightInputIconSlot = styled.View`
   width: ${props =>
     props.theme.icon.size[ICON_SIZE] + props.theme.spacing.lg}px;
   height: 100%;
   justify-content: center;
   border-radius: 0 ${props => props.theme.border.radius.md}px
     ${props => props.theme.border.radius.md}px 0;
+`;
+
+const LeftInputIconSlot = styled.View`
+  width: ${props => props.theme.icon.size[ICON_SIZE]}px;
+  height: 100%;
+  justify-content: center;
+  padding-horizontal: ${props => props.theme.spacing.lg}px;
 `;
 
 const InputWrapper = styled.View<InputWrapperProps>`
@@ -126,8 +140,8 @@ const InputWrapper = styled.View<InputWrapperProps>`
     props.hasError
       ? props.theme.color.error
       : ["focused"].includes(props.inputState)
-      ? props.theme.color.primary1
-      : props.theme.color.shadow};
+      ? props.theme.color.contrast
+      : props.theme.color.neutral};
   border-radius: ${props => props.theme.border.radius.md}px;
   background-color: ${props => props.theme.color.background};
 `;
@@ -141,7 +155,8 @@ export const InputBase = forwardRef<TextInput, InputBaseProps>(
     {
       lang,
       label,
-      icon,
+      leftIcon,
+      rightIcon,
       error,
       inputStyle,
       onFocus,
@@ -248,9 +263,11 @@ export const InputBase = forwardRef<TextInput, InputBaseProps>(
               inputState={inputState}
               hasError={error !== undefined}
               pointerEvents="none"
+              leftIcon={leftIcon}
             >
               {label}
             </AnimatedLabel>
+            {leftIcon && <LeftInputIconSlot>{leftIcon}</LeftInputIconSlot>}
             <InputField
               {...props}
               accessibilityLabel={label}
@@ -262,7 +279,7 @@ export const InputBase = forwardRef<TextInput, InputBaseProps>(
               onBlur={_onBlur}
               onChangeText={_onChangeText}
             />
-            {icon && <InputIconSlot>{icon}</InputIconSlot>}
+            {rightIcon && <RightInputIconSlot>{rightIcon}</RightInputIconSlot>}
           </InputWrapper>
         </Container>
         {error?.message && (

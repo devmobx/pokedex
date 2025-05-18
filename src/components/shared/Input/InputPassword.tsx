@@ -159,7 +159,7 @@ export const InputPassword = forwardRef<TextInput, InputPasswordProps>(
             ? "visible-password"
             : "default"
         }
-        icon={
+        rightIcon={
           <InputIconButton {...buttonProps}>
             {!passwordVisibilityState.isSelected ? (
               <EyeSlashIcon isFocused={isFocused} error={props.error} />

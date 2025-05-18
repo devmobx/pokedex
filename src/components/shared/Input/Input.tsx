@@ -8,12 +8,14 @@ import { InputBase } from "./InputBase";
 import { InputCode } from "./InputCode";
 import { InputDate } from "./InputDate";
 import { InputPassword } from "./InputPassword";
+import { InputSearch } from "./InputSearch";
 
 export type InputProps =
   | ({ type?: "text" } & ComponentProps<typeof InputBase>)
   | ({ type: "password" } & ComponentProps<typeof InputPassword>)
   | ({ type: "code" } & ComponentProps<typeof InputCode>)
-  | ({ type: "date" } & ComponentProps<typeof InputDate>);
+  | ({ type: "date" } & ComponentProps<typeof InputDate>)
+  | ({ type: "search" } & ComponentProps<typeof InputSearch>);
 
 const InputContainer = styled.View.attrs(({ style }) => ({
   style
@@ -33,6 +35,9 @@ const InputByType = forwardRef<TextInput, InputProps>(
       }
       case "date": {
         return <InputDate ref={ref} {...props} />;
+      }
+      case "search": {
+        return <InputSearch ref={ref} {...props} />;
       }
       default: {
         return <InputBase ref={ref} {...props} />;
