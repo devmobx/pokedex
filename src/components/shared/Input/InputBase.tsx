@@ -78,7 +78,7 @@ const AnimatedLabel = styled(Animated.Text)<
   position: absolute;
   ${props =>
     props.leftIcon
-      ? `left: ${props.theme.spacing.lg + props.theme.spacing.lg};`
+      ? `left: ${props.theme.spacing.lg + props.theme.spacing.lg}px;`
       : ""}
   font-family: ${props =>
     ["focused", "inactive"].includes(props.inputState)

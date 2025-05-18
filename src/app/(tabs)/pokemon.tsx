@@ -45,7 +45,8 @@ export default function PokemonScreen() {
               ref={ref}
               lang={language}
               type="search"
-              label="Search for pokemon"
+              label={t("base:search")}
+              placeholder={t("pokemon:searchPlaceholder")}
               onChangeText={onChange}
               {...field}
               error={error}

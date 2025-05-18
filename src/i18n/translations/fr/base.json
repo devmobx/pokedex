@@ -7,5 +7,6 @@
   "items": "Objets",
   "home": "Home",
   "type_charts": "Tableaux des types",
-  "requiredField": "Ce champ est requis"
+  "requiredField": "Ce champ est requis",
+  "search": "Rechercher"
 }

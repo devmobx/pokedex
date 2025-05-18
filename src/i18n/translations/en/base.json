@@ -7,5 +7,6 @@
   "items": "Items",
   "home": "Home",
   "type_charts": "Type Charts",
-  "requiredField": "This field is required"
+  "requiredField": "This field is required",
+  "search": "Search"
 }

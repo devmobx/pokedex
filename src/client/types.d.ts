@@ -1,6 +1,16 @@
 import { AxiosError } from "axios";
 
-export type FailureResponse = AxiosError<unknown, unknown> | string | undefined;
+export type FetchError = {
+  name: string;
+  message: string;
+  stack?: string;
+};
+
+export type FailureResponse =
+  | AxiosError<unknown, unknown>
+  | FetchError
+  | string
+  | undefined;
 
 export type RequestPayload<Values, SuccessResponse> = {
   body: Values;

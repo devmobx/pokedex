@@ -1,4 +1,5 @@
 {
   "notFound": "Pokémon introuvable",
-  "notFoundMsg": "Veuillez vérifier l'orthographe ou entrer un nom de Pokémon valide."
+  "notFoundMsg": "Veuillez vérifier l'orthographe ou entrer un nom de Pokémon valide.",
+  "searchPlaceholder": "Entrez un Pokémon spécifique"
 }
