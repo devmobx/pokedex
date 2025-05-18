@@ -5,10 +5,10 @@ import { Keyboard } from "react-native";
 import { Pokeapi } from "@/client";
 import { ErrorCode } from "@/client/errors";
 import {
-  BackgroundPokeball,
   Button,
   Header,
   Input,
+  PokeballBgScreenContent,
   Screen
 } from "@/components/shared";
 import { useTranslation } from "@/i18n";
@@ -30,8 +30,8 @@ export default function PokedexScreen() {
   });
 
   return (
-    <>
-      <Screen.Container paddingHorizontal="xl" edges={["top", "bottom"]}>
+    <Screen.Container edges={["bottom"]}>
+      <PokeballBgScreenContent>
         <Header>{t("base:pokedex")}</Header>
         <Controller
           key="pokemon"
@@ -86,8 +86,7 @@ export default function PokedexScreen() {
         >
           Get Pokemon
         </Button>
-      </Screen.Container>
-      <BackgroundPokeball />
-    </>
+      </PokeballBgScreenContent>
+    </Screen.Container>
   );
 }

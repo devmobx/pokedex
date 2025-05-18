@@ -1,5 +1,4 @@
 export * from "./AnimatedPressable";
-export * from "./BackgroundPokeball";
 export * from "./Box";
 export * from "./Button";
 export * from "./FocusAwareStatusbar";
@@ -10,5 +9,6 @@ export * from "./Input";
 export * from "./KeyboardAvoidingContainer";
 export * from "./Link";
 export * from "./ParsedText";
+export * from "./PokeballBgScreenContent";
 export * from "./Screen";
 export * from "./Toast";
