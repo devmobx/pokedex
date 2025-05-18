@@ -8,7 +8,7 @@ type Props = {
   marginBottom: Spacing;
 };
 
-export const MenuActionTile = ({
+export const HomeActionTile = ({
   backgroundColor,
   marginBottom,
   children

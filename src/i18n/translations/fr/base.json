@@ -1,9 +1,11 @@
 {
   "pokedex": "Pokédex",
+  "pokemon": "Pokémon",
   "abilities": "Capacités",
   "locations": "Lieux",
   "moves": "Capacités",
   "items": "Objets",
+  "home": "Home",
   "type_charts": "Tableaux des types",
   "requiredField": "Ce champ est requis"
 }

@@ -1,9 +1,11 @@
 {
   "pokedex": "Pokédex",
+  "pokemon": "Pokémon",
   "abilities": "Abilities",
   "locations": "Locations",
   "moves": "Moves",
   "items": "Items",
+  "home": "Home",
   "type_charts": "Type Charts",
   "requiredField": "This field is required"
 }

@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
-import { House, IconProps } from "phosphor-react-native";
+import { Alien, House, IconProps } from "phosphor-react-native";
 
+import { useTranslation } from "@/i18n";
 import { styled, useTheme } from "@/theme";
 
 const TabBarIcon = styled(House).attrs<IconProps>(props => ({
@@ -10,21 +11,29 @@ const TabBarIcon = styled(House).attrs<IconProps>(props => ({
 
 export default function TabLayout() {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.color.primary3,
+        tabBarActiveTintColor: theme.color.white,
+        tabBarInactiveTintColor: theme.color.black,
         tabBarStyle: {
           height: 90,
-          paddingTop: theme.spacing.xs
+          paddingTop: theme.spacing.sm,
+          backgroundColor: theme.color.primary2,
+          shadowColor: theme.color.black,
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 8,
+          elevation: 8
         },
         tabBarIconStyle: {
           marginBottom: theme.spacing.none
         },
         tabBarLabelStyle: {
-          fontSize: theme.font.size.md,
+          fontSize: theme.font.size.sm,
           marginTop: theme.spacing.xxs,
           fontFamily: theme.font.family.inter["semi-bold"]
         }
@@ -33,8 +42,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: t("base:home"),
           tabBarIcon: ({ color }: IconProps) => <TabBarIcon color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="pokemon"
+        options={{
+          title: t("base:pokemon"),
+          tabBarIcon: ({ color }: IconProps) => (
+            <TabBarIcon as={Alien} color={color} />
+          )
         }}
       />
     </Tabs>

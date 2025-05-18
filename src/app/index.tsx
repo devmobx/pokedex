@@ -25,7 +25,7 @@ export default function StartScreen() {
       </Box>
       <Button
         marginTop="auto"
-        onPress={() => router.navigate("/pokedex")}
+        onPress={() => router.navigate("/(tabs)")}
         labelColor="white"
         fontSize="md"
         fontVariant="bold"

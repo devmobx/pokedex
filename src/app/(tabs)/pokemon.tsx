@@ -14,7 +14,7 @@ import {
 import { useTranslation } from "@/i18n";
 import { showToast } from "@/utils";
 
-export default function PokedexScreen() {
+export default function PokemonScreen() {
   const { t, language } = useTranslation();
 
   const {
@@ -32,7 +32,7 @@ export default function PokedexScreen() {
   return (
     <Screen.Container edges={["bottom"]}>
       <PokeballBgScreenContent>
-        <Header>{t("base:pokedex")}</Header>
+        <Header>{t("base:pokemon")}</Header>
         <Controller
           key="pokemon"
           control={control}
@@ -76,8 +76,8 @@ export default function PokedexScreen() {
                   ) {
                     showToast({
                       type: "error",
-                      text1: t("pokedex:notFound"),
-                      text2: t("pokedex:notFoundMsg")
+                      text1: t("pokemon:notFound"),
+                      text2: t("pokemon:notFoundMsg")
                     });
                   }
                 }
