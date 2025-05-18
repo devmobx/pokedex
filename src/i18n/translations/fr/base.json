@@ -4,5 +4,6 @@
   "locations": "Lieux",
   "moves": "Capacités",
   "items": "Objets",
-  "type_charts": "Tableaux des types"
+  "type_charts": "Tableaux des types",
+  "requiredField": "Ce champ est requis"
 }

@@ -1,3 +1,4 @@
+import { isAxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { Keyboard } from "react-native";
 
@@ -12,7 +13,6 @@ import {
 } from "@/components/shared";
 import { useTranslation } from "@/i18n";
 import { showToast } from "@/utils";
-import { isAxiosError } from "axios";
 
 export default function PokedexScreen() {
   const { t, language } = useTranslation();
@@ -37,7 +37,7 @@ export default function PokedexScreen() {
           key="pokemon"
           control={control}
           name="pokemon"
-          rules={{ required: "This field is required" }}
+          rules={{ required: t("base:requiredField") }}
           render={({
             field: { ref, onChange, ...field },
             fieldState: { error }

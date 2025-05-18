@@ -9,6 +9,7 @@ export const BackgroundPokeball = () => (
     top={0}
     right={0}
     style={{
+      zIndex: -0,
       transform: [{ translateX: 95 }, { translateY: -50 }]
     }}
   >

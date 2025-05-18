@@ -4,5 +4,6 @@
   "locations": "Locations",
   "moves": "Moves",
   "items": "Items",
-  "type_charts": "Type Charts"
+  "type_charts": "Type Charts",
+  "requiredField": "This field is required"
 }
