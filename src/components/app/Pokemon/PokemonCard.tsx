@@ -1,16 +1,30 @@
-import { AnimatedPressable } from "@/components/shared";
+import { PokeAPI } from "pokeapi-types";
+import { Image } from "react-native";
+
+import { AnimatedPressable, Box, FontText } from "@/components/shared";
 
 type Props = {
-  pokemonData: unknown;
+  pokemon: PokeAPI.Pokemon;
 };
 
-export const PokemonCard = ({ pokemonData }: Props) => {
+export const PokemonCard = ({ pokemon }: Props) => {
   return (
     <AnimatedPressable
-      height={90}
       borderRadius="xl"
       justifyContent="center"
       paddingHorizontal="md"
-    ></AnimatedPressable>
+      paddingTop="lg"
+      backgroundColor={"grey5"}
+    >
+      <Box fullWidth>
+        <FontText>{pokemon.name}</FontText>
+      </Box>
+      <Image
+        source={{
+          uri: pokemon.sprites.front_default
+        }}
+        style={{ width: "100%", height: "100%" }}
+      />
+    </AnimatedPressable>
   );
 };

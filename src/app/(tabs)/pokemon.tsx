@@ -2,9 +2,12 @@ import { isAxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { Keyboard } from "react-native";
 
+import { usePokemonStore } from "@/_zustand";
 import { Pokeapi } from "@/client";
 import { ErrorCode } from "@/client/errors";
+import { PokemonCard } from "@/components/app/Pokemon";
 import {
+  Box,
   Button,
   Header,
   Input,
@@ -16,6 +19,8 @@ import { showToast } from "@/utils";
 
 export default function PokemonScreen() {
   const { t, language } = useTranslation();
+  const setCurrentPokemon = usePokemonStore.use.setCurrentPokemon();
+  const currentPokemon = usePokemonStore.use.currentPokemon();
 
   const {
     control,
@@ -66,7 +71,8 @@ export default function PokemonScreen() {
             return new Promise<void>(resolve => {
               Pokeapi.getPokemon({
                 body: { pokemon },
-                onSuccess: () => {
+                onSuccess: res => {
+                  setCurrentPokemon(res.data);
                   resolve();
                 },
                 onFailure: error => {
@@ -88,6 +94,9 @@ export default function PokemonScreen() {
         >
           Get Pokemon
         </Button>
+        <Box flex={1}>
+          {currentPokemon && <PokemonCard pokemon={currentPokemon} />}
+        </Box>
       </PokeballBgScreenContent>
     </Screen.Container>
   );

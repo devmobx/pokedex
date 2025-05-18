@@ -10598,6 +10598,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pokeapi-types@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "pokeapi-types@npm:0.0.2"
+  checksum: 10c0/9ad6f4bc1a239aed85352a4337e9588517a91a1ed844a6c7ebf2963429414588e8ca2c77492d7a08e50105b8bd05d425e8cbe92a2a5ae8c9316e9cb56dad750c
+  languageName: node
+  linkType: hard
+
 "pokedex@workspace:.":
   version: 0.0.0-use.local
   resolution: "pokedex@workspace:."
@@ -10641,6 +10648,7 @@ __metadata:
     i18next-resources-for-ts: "npm:^1.6.0"
     jest: "npm:^29.7.0"
     phosphor-react-native: "npm:^2.3.1"
+    pokeapi-types: "npm:^0.0.2"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
     react-hook-form: "npm:^7.56.3"
