@@ -6,12 +6,14 @@ type Props = {
   children: string;
   backgroundColor: Color;
   marginBottom: Spacing;
+  onPress?: () => void;
 };
 
 export const HomeActionTile = ({
   backgroundColor,
   marginBottom,
-  children
+  children,
+  onPress = () => null
 }: Props) => {
   return (
     <AnimatedPressable
@@ -22,6 +24,7 @@ export const HomeActionTile = ({
       paddingHorizontal="md"
       marginBottom={marginBottom}
       style={{ overflow: "hidden" }}
+      onPress={onPress}
     >
       <Graphic
         style={{ position: "absolute", left: -100, bottom: 0 }}

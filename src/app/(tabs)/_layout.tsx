@@ -17,12 +17,12 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.color.white,
-        tabBarInactiveTintColor: theme.color.black,
+        tabBarActiveTintColor: theme.color.grey1,
+        tabBarInactiveTintColor: theme.color.grey5,
         tabBarStyle: {
           height: 90,
           paddingTop: theme.spacing.sm,
-          backgroundColor: theme.color.primary2,
+          backgroundColor: theme.color.contrast,
           shadowColor: theme.color.black,
           shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.1,

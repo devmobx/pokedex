@@ -21,7 +21,7 @@ export const PokeballBgScreenContent = ({ children }: PropsWithChildren) => {
       >
         <Graphic color="black" as={PokeballBg} />
       </Box>
-      <Box paddingHorizontal="xl" style={{ paddingTop: insets.top }}>
+      <Box paddingHorizontal="xl" flex={1} style={{ paddingTop: insets.top }}>
         {children}
       </Box>
     </>
