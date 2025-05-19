@@ -5,7 +5,7 @@ type Props = { children: string };
 
 export const Header = ({ children }: Props) => {
   return (
-    <Box marginVertical="xxl">
+    <Box marginVertical="lg">
       <FontText fontFamily="poppins" fontVariant="bold" fontSize="display">
         {children}
       </FontText>

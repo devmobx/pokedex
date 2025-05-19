@@ -23,7 +23,9 @@ type InputSearchProps = Pick<
   ComponentProps<typeof InputBase>,
   "error" | "value" | "name" | "rules" | "label" | "lang"
 > & {
-  onFilterIconPress: () => void;
+  onFilterIconPress?: () => void;
+  showLeftIcon?: boolean;
+  showRightIcon?: boolean;
 } & TextInputProps;
 
 type DateFieldProps = {
@@ -64,6 +66,8 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
       onFocus,
       onBlur,
       onFilterIconPress,
+      showLeftIcon = true,
+      showRightIcon = true,
       ...props
     }: InputSearchProps,
     ref
@@ -99,7 +103,7 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
       if (!inputRef.current?.isFocused()) {
         inputRef.current?.focus();
       }
-      onFilterIconPress();
+      onFilterIconPress?.();
     }, [onFilterIconPress]);
 
     return (
@@ -110,16 +114,24 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
         onBlur={_onBlur}
         label={label}
         ref={inputRef}
-        leftIcon={
-          <SearchIconButton onPress={onSearchIconPress}>
-            <SearchIcon isFocused={isFocused} />
-          </SearchIconButton>
-        }
-        rightIcon={
-          <FilterIconButton onPress={_onFilterIconPress}>
-            <FilterIcon isFocused={isFocused} />
-          </FilterIconButton>
-        }
+        {...(showLeftIcon
+          ? {
+              leftIcon: (
+                <SearchIconButton onPress={onSearchIconPress}>
+                  <SearchIcon isFocused={isFocused} />
+                </SearchIconButton>
+              )
+            }
+          : {})}
+        {...(showRightIcon
+          ? {
+              rightIcon: (
+                <FilterIconButton onPress={_onFilterIconPress}>
+                  <FilterIcon isFocused={isFocused} />
+                </FilterIconButton>
+              )
+            }
+          : {})}
       />
     );
   }

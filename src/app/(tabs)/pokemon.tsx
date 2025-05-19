@@ -1,6 +1,12 @@
 import { isAxiosError } from "axios";
+import {
+  Check,
+  MagnifyingGlass,
+  SlidersHorizontal,
+  X
+} from "phosphor-react-native";
 import { PokeAPI } from "pokeapi-types";
-import { useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FlatList, Keyboard } from "react-native";
 
@@ -9,9 +15,11 @@ import { Pokeapi } from "@/client";
 import { ErrorCode } from "@/client/errors";
 import { PokemonActionCard } from "@/components/app/Pokemon";
 import {
+  AnimatedPressable,
   Box,
   Button,
   FontText,
+  Graphic,
   Header,
   Input,
   PokeballBgScreenContent
@@ -20,11 +28,24 @@ import { useTranslation } from "@/i18n/hooks";
 import { styled } from "@/theme";
 import { showToast } from "@/utils";
 
+type SearchFormToggleButtonProps = {
+  customSearch: boolean;
+  setCustomSearch: Dispatch<SetStateAction<boolean>>;
+};
+
+type FilterToggleButtonProps = {
+  openFilter: boolean;
+  setOpenFilter: Dispatch<SetStateAction<boolean>>;
+};
+
 const PokemonResultsList = styled(FlatList).attrs({
   showsVerticalScrollIndicator: false
 })`` as new () => FlatList<PokeAPI.Pokemon>;
 
 export default function PokemonScreen() {
+  const { t } = useTranslation();
+  const [customSearch, setCustomSearch] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
   const currentPokemon = usePokemonStore.use.currentPokemon();
   const pokemonList = usePokemonStore.use.pokemonList() as PokeAPI.Pokemon[];
 
@@ -35,19 +56,44 @@ export default function PokemonScreen() {
     []
   );
 
+  const renderHeader = useCallback(() => {
+    return (
+      <>
+        <Box flexDirection="row">
+          <Header>{t("base:pokemon")}</Header>
+          <Box flexDirection="row" justifyContent="flex-end" flex={1}>
+            <FilterToggleButton
+              openFilter={openFilter}
+              setOpenFilter={setOpenFilter}
+            />
+            <SearchFormToggleButton
+              customSearch={customSearch}
+              setCustomSearch={setCustomSearch}
+            />
+          </Box>
+        </Box>
+        {customSearch && <PokemonSearchForm />}
+      </>
+    );
+  }, [customSearch, openFilter, t]);
+
+  const getDisplayablePokemon = useCallback(() => {
+    if (customSearch && currentPokemon) {
+      return [currentPokemon];
+    }
+    if (pokemonList.length > 0) {
+      return pokemonList;
+    }
+    return;
+  }, [currentPokemon, customSearch, pokemonList]);
+
   return (
     <Box flex={1} backgroundColor="background">
       <PokeballBgScreenContent>
         <PokemonResultsList
           bounces={false}
-          ListHeaderComponent={FormHeader}
-          data={
-            pokemonList.length > 0
-              ? pokemonList
-              : currentPokemon
-              ? [currentPokemon]
-              : undefined
-          }
+          ListHeaderComponent={renderHeader}
+          data={getDisplayablePokemon()}
           keyExtractor={item => `${item.name}-${item.id}`}
           ListEmptyComponent={<FontText>No Pokémon found</FontText>}
           renderItem={renderPokemon}
@@ -57,10 +103,61 @@ export default function PokemonScreen() {
   );
 }
 
-const FormHeader = () => {
+const FilterToggleButton = ({ setOpenFilter }: FilterToggleButtonProps) => {
+  const diameter = 40;
+  return (
+    <AnimatedPressable
+      width={diameter}
+      height={diameter}
+      padding="sm"
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="primary3"
+      marginRight="md"
+      borderRadius="full"
+      marginBottom="lg"
+      alignSelf="flex-end"
+      onPress={() => {
+        setOpenFilter(true);
+      }}
+    >
+      <Graphic color="grey1" as={SlidersHorizontal} />
+    </AnimatedPressable>
+  );
+};
+
+const SearchFormToggleButton = ({
+  customSearch,
+  setCustomSearch
+}: SearchFormToggleButtonProps) => {
+  const diameter = 40;
+  return (
+    <AnimatedPressable
+      width={diameter}
+      height={diameter}
+      padding="sm"
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="primary3"
+      borderRadius="full"
+      marginBottom="lg"
+      alignSelf="flex-end"
+      onPress={() => {
+        setCustomSearch(!customSearch);
+      }}
+    >
+      {customSearch ? (
+        <Graphic color="grey1" as={X} />
+      ) : (
+        <Graphic color="grey1" as={MagnifyingGlass} />
+      )}
+    </AnimatedPressable>
+  );
+};
+
+const PokemonSearchForm = () => {
   const { t, language } = useTranslation();
   const setCurrentPokemon = usePokemonStore.use.setCurrentPokemon();
-  const setPokemonList = usePokemonStore.use.setPokemonList();
 
   const {
     control,
@@ -74,72 +171,76 @@ const FormHeader = () => {
     }
   });
 
+  const onFormValid: Parameters<typeof handleSubmit>[0] = useCallback(
+    ({ pokemon }) => {
+      Keyboard.dismiss();
+      return new Promise<void>(resolve => {
+        Pokeapi.getPokemon({
+          body: { pokemon },
+          onSuccess: res => {
+            setCurrentPokemon(res.data);
+            resolve();
+          },
+          onFailure: error => {
+            resolve();
+            if (
+              isAxiosError(error) &&
+              error.code === ErrorCode.ERR_BAD_REQUEST
+            ) {
+              showToast({
+                type: "error",
+                text1: t("pokemon:notFound"),
+                text2: t("pokemon:notFoundMsg")
+              });
+            }
+          }
+        });
+      });
+    },
+    [setCurrentPokemon, t]
+  );
+
   return (
-    <>
-      <Header>{t("base:pokemon")}</Header>
-      <Controller
-        key="pokemon"
-        control={control}
-        name="pokemon"
-        render={({
-          field: { ref, onChange, ...field },
-          fieldState: { error }
-        }) => (
-          <Input
-            ref={ref}
-            lang={language}
-            type="search"
-            label={t("base:search")}
-            placeholder={t("pokemon:searchPlaceholder")}
-            onChangeText={onChange}
-            {...field}
-            error={error}
-            marginBottom="lg"
-            onFilterIconPress={() => {
-              console.log("Filter pressed");
-            }}
-          />
-        )}
-      />
-      <Button
-        backgroundColor="primary2"
-        marginBottom="lg"
-        labelColor="white"
-        loading={isSubmitting}
-        onPress={handleSubmit(({ pokemon }) => {
-          Keyboard.dismiss();
-          return new Promise<void>(resolve => {
-            Pokeapi.getPokemon({
-              body: { pokemon },
-              onSuccess: res => {
-                if ("results" in res.data) {
-                  const results = res.data.results as PokeAPI.Pokemon[];
-                  setPokemonList(results);
-                  setCurrentPokemon(results[0]);
-                } else {
-                  setCurrentPokemon(res.data);
-                }
-                resolve();
-              },
-              onFailure: error => {
-                resolve();
-                if (
-                  isAxiosError(error) &&
-                  error.code === ErrorCode.ERR_BAD_REQUEST
-                ) {
-                  showToast({
-                    type: "error",
-                    text1: t("pokemon:notFound"),
-                    text2: t("pokemon:notFoundMsg")
-                  });
-                }
-              }
-            });
-          });
-        })}
-      >
-        Get Pokémon
-      </Button>
-    </>
+    <Controller
+      key="pokemon"
+      control={control}
+      name="pokemon"
+      render={({
+        field: { ref, onChange, ...field },
+        fieldState: { error }
+      }) => (
+        <Box flexDirection="row" justifyContent="center" alignItems="center">
+          <Box flex={1} justifyContent="center">
+            <Input
+              ref={ref}
+              lang={language}
+              type="search"
+              rules={{ required: t("base:requiredField") }}
+              label={t("base:search")}
+              placeholder={t("pokemon:searchPlaceholder")}
+              onChangeText={onChange}
+              {...field}
+              error={error}
+              marginBottom="lg"
+              showLeftIcon={false}
+              showRightIcon={false}
+            />
+          </Box>
+          <Box marginLeft="md">
+            <Box width={40}>
+              <Button
+                backgroundColor="primary1"
+                marginBottom="lg"
+                labelColor="grey1"
+                loading={isSubmitting}
+                onPress={handleSubmit(onFormValid)}
+              >
+                <Graphic as={Check} color="grey1" />
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      )}
+    />
   );
 };
