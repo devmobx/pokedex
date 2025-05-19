@@ -37,6 +37,4 @@ const config: InitOptions = {
 
 i18n.use(initReactI18next).init(config);
 
-export * from "./hooks";
-
 export default i18n;

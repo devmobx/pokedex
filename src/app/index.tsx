@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 
 import { Box, Button, FontText, Screen } from "@/components/shared";
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/i18n/hooks";
 
 export default function StartScreen() {
   const router = useRouter();

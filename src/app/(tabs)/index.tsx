@@ -7,7 +7,7 @@ import {
   PokeballBgScreenContent,
   Screen
 } from "@/components/shared";
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/i18n/hooks";
 
 export default function HomeScreen() {
   const { t } = useTranslation();

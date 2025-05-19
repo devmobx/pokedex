@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { Alien, House, IconProps } from "phosphor-react-native";
 
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/i18n/hooks";
 import { styled, useTheme } from "@/theme";
 
 const TabBarIcon = styled(House).attrs<IconProps>(props => ({

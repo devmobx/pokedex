@@ -16,7 +16,7 @@ import {
   Input,
   PokeballBgScreenContent
 } from "@/components/shared";
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/i18n/hooks";
 import { styled } from "@/theme";
 import { showToast } from "@/utils";
 
@@ -39,6 +39,7 @@ export default function PokemonScreen() {
     <Box flex={1} backgroundColor="background">
       <PokeballBgScreenContent>
         <PokemonResultsList
+          bounces={false}
           ListHeaderComponent={FormHeader}
           data={
             pokemonList.length > 0
