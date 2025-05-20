@@ -6,7 +6,13 @@ import {
   X
 } from "phosphor-react-native";
 import { PokeAPI } from "pokeapi-types";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState
+} from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FlatList, Keyboard } from "react-native";
 
@@ -48,6 +54,9 @@ export default function PokemonScreen() {
   const [openFilter, setOpenFilter] = useState(false);
   const currentPokemon = usePokemonStore.use.currentPokemon();
   const pokemonList = usePokemonStore.use.pokemonList() as PokeAPI.Pokemon[];
+  const setPokemonList = usePokemonStore.use.setPokemonList();
+  // const paginationData = usePokemonStore.use.paginationData();
+  const setPaginationData = usePokemonStore.use.setPaginationData();
 
   const renderPokemon = useCallback(
     ({ item }: { item: PokeAPI.Pokemon }) => (
@@ -55,6 +64,30 @@ export default function PokemonScreen() {
     ),
     []
   );
+
+  useEffect(() => {
+    setPokemonList([]);
+    Pokeapi.getPaginatedPokemonList({
+      body: { limit: 10, offset: 0 },
+      onSuccess: async res => {
+        setPaginationData(res.data);
+        let newPokemonList = [] as PokeAPI.Pokemon[];
+
+        for (let result of res.data.results) {
+          const splitUrl = result.url.split("/");
+          const pokemonId = splitUrl[splitUrl.length - 2];
+          await Pokeapi.getPokemon({
+            body: { pokemon: pokemonId },
+            onSuccess: res => {
+              newPokemonList.push(res.data);
+            }
+          });
+        }
+        setPokemonList(newPokemonList);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderHeader = useCallback(() => {
     return (
@@ -78,13 +111,13 @@ export default function PokemonScreen() {
   }, [customSearch, openFilter, t]);
 
   const getDisplayablePokemon = useCallback(() => {
-    if (customSearch && currentPokemon) {
-      return [currentPokemon];
+    if (customSearch) {
+      return currentPokemon ? [currentPokemon] : undefined;
     }
     if (pokemonList.length > 0) {
       return pokemonList;
     }
-    return;
+    return undefined;
   }, [currentPokemon, customSearch, pokemonList]);
 
   return (

@@ -22,12 +22,12 @@ type GetPokemonRequest = RequestPayload<
 export const getPokemon = ({ body, ...handlers }: GetPokemonRequest) => {
   const pokemon = body.pokemon.length !== 0 ? body.pokemon : undefined;
   const request = pokeapi.get<PokeAPI.Pokemon>(`/pokemon/${pokemon}`);
-  handleAxiosRequest(request, handlers, ["ERR_BAD_REQUEST"]);
+  return handleAxiosRequest(request, handlers, ["ERR_BAD_REQUEST"]);
 };
 
 type GetPaginatedPokemonListRequest = RequestPayload<
   { limit: number; offset: number },
-  AxiosResponse<PokeAPI.Pokemon>
+  AxiosResponse<PokeAPI.NamedAPIResourceList>
 >;
 
 export const getPaginatedPokemonList = ({
@@ -38,8 +38,8 @@ export const getPaginatedPokemonList = ({
   params.set("limit", limit.toString());
   params.set("offset", offset.toString());
 
-  const request = pokeapi.get<PokeAPI.Pokemon>(
+  const request = pokeapi.get<PokeAPI.NamedAPIResourceList>(
     `/pokemon/?${params.toString()}`
   );
-  handleAxiosRequest(request, handlers);
+  return handleAxiosRequest(request, handlers);
 };
