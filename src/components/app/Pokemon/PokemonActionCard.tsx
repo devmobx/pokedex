@@ -18,22 +18,35 @@ export const PokemonActionCard = ({ pokemon, onPress = () => null }: Props) => {
       paddingHorizontal="md"
       paddingVertical="md"
       backgroundColor="grey6"
+      marginBottom="md"
       style={{ overflow: "hidden" }}
       onPress={onPress}
     >
-      <FontText
-        color="grey1"
-        fontVariant="semi-bold"
-        marginBottom="md"
-        fontSize="md"
-      >
-        {capitalizeFirst(pokemon?.name)}
-      </FontText>
+      <Box flexDirection="row" justifyContent="space-between">
+        <FontText
+          color="grey1"
+          fontVariant="semi-bold"
+          marginBottom="md"
+          fontSize="md"
+        >
+          {capitalizeFirst(pokemon?.name)}
+        </FontText>
+        <FontText
+          color="transparentGrey9"
+          fontVariant="semi-bold"
+          marginBottom="md"
+          fontSize="md"
+        >
+          {`${(() => {
+            return `#${pokemon.id.toString().padStart(4, "0")}`;
+          })()}`}
+        </FontText>
+      </Box>
       <Box flexDirection="row" justifyContent="space-between">
         <Box>
-          {pokemon.abilities.map(({ ability }, i) => {
-            return <Ability data={ability} key={`${ability.name}-${i}`} />;
-          })}
+          {pokemon.abilities.map(({ ability }, i) => (
+            <Ability data={ability} key={`${ability.name}-${i}`} />
+          ))}
         </Box>
         <Box width={IMAGE_WIDTH} right={0}>
           <Box width={IMAGE_WIDTH} height={100}>
@@ -64,6 +77,7 @@ const Ability = ({ data }: AbilityProps) => {
       paddingHorizontal="md"
       paddingVertical="sm"
       borderRadius="full"
+      marginBottom="sm"
     >
       <FontText color="grey1">{data.name}</FontText>
     </Box>
