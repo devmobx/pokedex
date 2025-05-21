@@ -58,13 +58,6 @@ export default function PokemonScreen() {
   // const paginationData = usePokemonStore.use.paginationData();
   const setPaginationData = usePokemonStore.use.setPaginationData();
 
-  const renderPokemon = useCallback(
-    ({ item }: { item: PokeAPI.Pokemon }) => (
-      <PokemonActionCard onPress={() => null} pokemon={item} />
-    ),
-    []
-  );
-
   useEffect(() => {
     setPokemonList([]);
     Pokeapi.getPaginatedPokemonList({
@@ -119,6 +112,13 @@ export default function PokemonScreen() {
     }
     return undefined;
   }, [currentPokemon, customSearch, pokemonList]);
+
+  const renderPokemon = useCallback(
+    ({ item }: { item: PokeAPI.Pokemon }) => (
+      <PokemonActionCard onPress={() => null} pokemon={item} />
+    ),
+    []
+  );
 
   return (
     <Box flex={1} backgroundColor="background">
