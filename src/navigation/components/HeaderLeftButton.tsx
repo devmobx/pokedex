@@ -10,7 +10,15 @@ export const HeaderLeftButton = ({ onPress }: Props) => {
   const theme = useTheme();
 
   return (
-    <AnimatedPressable onPress={onPress}>
+    <AnimatedPressable
+      onPress={onPress}
+      backgroundColor="transparentGrey1"
+      width={30}
+      height={30}
+      justifyContent="center"
+      alignItems="center"
+      borderRadius="full"
+    >
       <Graphic as={BackArrow} color={theme.color.contrast} />
     </AnimatedPressable>
   );
