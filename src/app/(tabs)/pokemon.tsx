@@ -1,6 +1,6 @@
-import { isAxiosError } from "axios";
 import {
-  Check,
+  ArrowUUpLeft,
+  ArrowUUpRight,
   MagnifyingGlass,
   SlidersHorizontal,
   X
@@ -13,26 +13,21 @@ import {
   useEffect,
   useState
 } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { FlatList, Keyboard } from "react-native";
+import { Dimensions, FlatList } from "react-native";
 
 import { usePokemonStore } from "@/_zustand";
 import { Pokeapi } from "@/client";
-import { ErrorCode } from "@/client/errors";
-import { PokemonActionCard } from "@/components/app/Pokemon";
+import { PokemonActionCard, PokemonSearchForm } from "@/components/app/Pokemon";
 import {
   AnimatedPressable,
   Box,
-  Button,
-  FontText,
   Graphic,
   Header,
-  Input,
-  PokeballBgScreenContent
+  PokeballBgScreenContent,
+  Spinner
 } from "@/components/shared";
 import { useTranslation } from "@/i18n/hooks";
-import { styled } from "@/theme";
-import { showToast } from "@/utils";
+import { Spacing, styled } from "@/theme";
 
 type SearchFormToggleButtonProps = {
   customSearch: boolean;
@@ -44,9 +39,20 @@ type FilterToggleButtonProps = {
   setOpenFilter: Dispatch<SetStateAction<boolean>>;
 };
 
+type SearchParams = Parameters<
+  typeof Pokeapi.getPaginatedPokemonList
+>[0]["body"];
+
 const PokemonResultsList = styled(FlatList).attrs({
   showsVerticalScrollIndicator: false
 })`` as new () => FlatList<PokeAPI.Pokemon>;
+
+export const SpinnerWrapper = styled.View`
+  flex: 1;
+  height: ${Dimensions.get("window").height / 2}px;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function PokemonScreen() {
   const { t } = useTranslation();
@@ -54,31 +60,38 @@ export default function PokemonScreen() {
   const [openFilter, setOpenFilter] = useState(false);
   const currentPokemon = usePokemonStore.use.currentPokemon();
   const pokemonList = usePokemonStore.use.pokemonList() as PokeAPI.Pokemon[];
+  const paginationData = usePokemonStore.use.paginationData();
   const setPokemonList = usePokemonStore.use.setPokemonList();
-  // const paginationData = usePokemonStore.use.paginationData();
   const setPaginationData = usePokemonStore.use.setPaginationData();
 
-  useEffect(() => {
-    setPokemonList([]);
-    Pokeapi.getPaginatedPokemonList({
-      body: { limit: 10, offset: 0 },
-      onSuccess: async res => {
-        setPaginationData(res.data);
-        let newPokemonList = [] as PokeAPI.Pokemon[];
+  const loadPokemonList = useCallback(
+    ({ limit, offset }: SearchParams) => {
+      setPokemonList([]);
+      Pokeapi.getPaginatedPokemonList({
+        body: { limit, offset },
+        onSuccess: async res => {
+          setPaginationData(res.data);
+          let newPokemonList = [] as PokeAPI.Pokemon[];
 
-        for (let result of res.data.results) {
-          const splitUrl = result.url.split("/");
-          const pokemonId = splitUrl[splitUrl.length - 2];
-          await Pokeapi.getPokemon({
-            body: { pokemon: pokemonId },
-            onSuccess: res => {
-              newPokemonList.push(res.data);
-            }
-          });
+          for (let result of res.data.results) {
+            const splitUrl = result.url.split("/");
+            const pokemonId = splitUrl[splitUrl.length - 2];
+            await Pokeapi.getPokemon({
+              body: { pokemon: pokemonId },
+              onSuccess: res => {
+                newPokemonList.push(res.data);
+              }
+            });
+          }
+          setPokemonList(newPokemonList);
         }
-        setPokemonList(newPokemonList);
-      }
-    });
+      });
+    },
+    [setPaginationData, setPokemonList]
+  );
+
+  useEffect(() => {
+    loadPokemonList({ limit: 10, offset: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -123,18 +136,89 @@ export default function PokemonScreen() {
   return (
     <Box flex={1} backgroundColor="background">
       <PokeballBgScreenContent>
+        {renderHeader()}
         <PokemonResultsList
           bounces={false}
-          ListHeaderComponent={renderHeader}
           data={getDisplayablePokemon()}
           keyExtractor={item => `${item.name}-${item.id}`}
-          ListEmptyComponent={<FontText>No Pokémon found</FontText>}
+          {...(customSearch
+            ? {}
+            : {
+                ListEmptyComponent: (
+                  <SpinnerWrapper>
+                    <Spinner size={60} />
+                  </SpinnerWrapper>
+                )
+              })}
+          ListFooterComponent={<Box marginVertical="xxl" />}
           renderItem={renderPokemon}
         />
       </PokeballBgScreenContent>
+      {!customSearch && (
+        <Box position="absolute" bottom={0} flex={1} paddingHorizontal="md">
+          <Box style={{ width: "100%" }} flexDirection="row">
+            {paginationData?.previous && (
+              <PaginationButton
+                loadPokemonList={loadPokemonList}
+                action="previous"
+              />
+            )}
+            {paginationData?.next && (
+              <PaginationButton
+                loadPokemonList={loadPokemonList}
+                action="next"
+                marginLeft="auto"
+              />
+            )}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }
+
+type PaginationButtonProps = {
+  action: "next" | "previous";
+  loadPokemonList: (params: SearchParams) => void;
+  marginLeft?: Spacing;
+};
+
+const PaginationButton = ({
+  action,
+  loadPokemonList,
+  marginLeft
+}: PaginationButtonProps) => {
+  const paginationData = usePokemonStore.use.paginationData();
+  const diameter = 50;
+  return (
+    <AnimatedPressable
+      width={diameter}
+      height={diameter}
+      padding="xs"
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="grey9"
+      borderRadius="full"
+      marginBottom="lg"
+      alignSelf="flex-end"
+      {...(marginLeft ? { marginLeft } : {})}
+      onPress={() => {
+        if (paginationData?.[action]) {
+          const params = new URL(paginationData[action]).searchParams;
+          loadPokemonList({
+            limit: Number(params.get("limit")),
+            offset: Number(params.get("offset"))
+          });
+        }
+      }}
+    >
+      <Graphic
+        color="grey1"
+        as={action === "next" ? ArrowUUpRight : ArrowUUpLeft}
+      />
+    </AnimatedPressable>
+  );
+};
 
 const FilterToggleButton = ({ setOpenFilter }: FilterToggleButtonProps) => {
   const diameter = 40;
@@ -185,95 +269,5 @@ const SearchFormToggleButton = ({
         <Graphic color="grey1" as={MagnifyingGlass} />
       )}
     </AnimatedPressable>
-  );
-};
-
-const PokemonSearchForm = () => {
-  const { t, language } = useTranslation();
-  const setCurrentPokemon = usePokemonStore.use.setCurrentPokemon();
-
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting }
-  } = useForm({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-    defaultValues: {
-      pokemon: ""
-    }
-  });
-
-  const onFormValid: Parameters<typeof handleSubmit>[0] = useCallback(
-    ({ pokemon }) => {
-      Keyboard.dismiss();
-      return new Promise<void>(resolve => {
-        Pokeapi.getPokemon({
-          body: { pokemon },
-          onSuccess: res => {
-            setCurrentPokemon(res.data);
-            resolve();
-          },
-          onFailure: error => {
-            resolve();
-            if (
-              isAxiosError(error) &&
-              error.code === ErrorCode.ERR_BAD_REQUEST
-            ) {
-              showToast({
-                type: "error",
-                text1: t("pokemon:notFound"),
-                text2: t("pokemon:notFoundMsg")
-              });
-            }
-          }
-        });
-      });
-    },
-    [setCurrentPokemon, t]
-  );
-
-  return (
-    <Controller
-      key="pokemon"
-      control={control}
-      name="pokemon"
-      render={({
-        field: { ref, onChange, ...field },
-        fieldState: { error }
-      }) => (
-        <Box flexDirection="row" justifyContent="center" alignItems="center">
-          <Box flex={1} justifyContent="center">
-            <Input
-              ref={ref}
-              lang={language}
-              type="search"
-              rules={{ required: t("base:requiredField") }}
-              label={t("base:search")}
-              placeholder={t("pokemon:searchPlaceholder")}
-              onChangeText={onChange}
-              {...field}
-              error={error}
-              marginBottom="lg"
-              showLeftIcon={false}
-              showRightIcon={false}
-            />
-          </Box>
-          <Box marginLeft="md">
-            <Box width={40}>
-              <Button
-                backgroundColor="primary1"
-                marginBottom="lg"
-                labelColor="grey1"
-                loading={isSubmitting}
-                onPress={handleSubmit(onFormValid)}
-              >
-                <Graphic as={Check} color="grey1" />
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      )}
-    />
   );
 };

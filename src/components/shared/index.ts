@@ -11,4 +11,5 @@ export * from "./Link";
 export * from "./ParsedText";
 export * from "./PokeballBgScreenContent";
 export * from "./Screen";
+export * from "./Spinner";
 export * from "./Toast";
