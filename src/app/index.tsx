@@ -25,7 +25,7 @@ export default function StartScreen() {
       </Box>
       <Button
         marginTop="auto"
-        onPress={() => router.navigate("/(tabs)")}
+        onPress={() => router.navigate("/main/(tabs)")}
         labelColor="white"
         fontSize="md"
         fontVariant="bold"

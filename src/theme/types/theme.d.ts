@@ -36,7 +36,7 @@ export type Spacing =
   | "none"
   | "auto";
 
-export type Radius = "none" | "sm" | "md" | "lg" | "xl" | "full";
+export type Radius = "none" | "sm" | "md" | "lg" | "xl" | "xxl" | "full";
 
 export type LineHeight = "xs" | "sm" | "md" | "lg" | "xl";
 

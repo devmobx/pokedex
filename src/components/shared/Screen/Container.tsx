@@ -2,13 +2,9 @@ import React, { ComponentProps, ElementType } from "react";
 import { Keyboard, Platform, Pressable, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Spacing, styled } from "@/theme";
+import { Color, Spacing, styled } from "@/theme";
 
 import { FocusAwareStatusBar } from "../FocusAwareStatusbar";
-
-type BackgroundTypeProps = {
-  backgroundType?: "default" | "muted" | "primary";
-};
 
 type ScrollableProps = {
   scrollable?: boolean;
@@ -16,9 +12,9 @@ type ScrollableProps = {
 
 type ContainerProps = {
   paddingHorizontal?: Spacing;
+  bgColor?: Color;
   centerContent?: boolean;
-} & BackgroundTypeProps &
-  ScrollableProps &
+} & ScrollableProps &
   ComponentProps<typeof SafeAreaView> & {
     dismissKeyboardOnPress?: boolean;
   };
@@ -38,7 +34,10 @@ const Content = styled(SafeAreaView).attrs(props => ({
   edges: props.edges ?? []
 }))<ContainerProps>`
   flex: 1;
-  background-color: ${props => props.theme.color.background};
+  background-color: ${props =>
+    props.bgColor
+      ? props.theme.color[props.bgColor]
+      : props.theme.color.background};
   ${({ centerContent }) => (centerContent ? "align-items: center;" : "")}
   ${({ paddingHorizontal, theme }) =>
     paddingHorizontal
@@ -50,9 +49,9 @@ const FlexOnePressable = styled(Pressable)`
   flex: 1;
 `;
 
-const AppStatusBar = styled(FocusAwareStatusBar).attrs<BackgroundTypeProps>(
-  ({ theme }) => ({
-    backgroundColor: theme.color.background
+const AppStatusBar = styled(FocusAwareStatusBar).attrs<ContainerProps>(
+  ({ theme, bgColor }) => ({
+    backgroundColor: bgColor ? theme.color[bgColor] : theme.color.background
   })
 )``;
 

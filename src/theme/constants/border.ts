@@ -14,6 +14,7 @@ export const border: Theme["border"] = {
     md: 8,
     lg: 12,
     xl: 20,
+    xxl: 40,
     full: 9999
   }
 };

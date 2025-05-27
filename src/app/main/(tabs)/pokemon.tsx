@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import {
   ArrowUUpLeft,
   ArrowUUpRight,
@@ -13,7 +14,7 @@ import {
   useEffect,
   useState
 } from "react";
-import { Dimensions, FlatList } from "react-native";
+import { Dimensions, FlatList, ListRenderItemInfo } from "react-native";
 
 import { usePokemonStore } from "@/_zustand";
 import { Pokeapi } from "@/client";
@@ -55,6 +56,7 @@ export const SpinnerWrapper = styled.View`
 `;
 
 export default function PokemonScreen() {
+  const router = useRouter();
   const { t } = useTranslation();
   const [customSearch, setCustomSearch] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -127,10 +129,18 @@ export default function PokemonScreen() {
   }, [currentPokemon, customSearch, pokemonList]);
 
   const renderPokemon = useCallback(
-    ({ item }: { item: PokeAPI.Pokemon }) => (
-      <PokemonActionCard onPress={() => null} pokemon={item} />
+    ({ item, index }: ListRenderItemInfo<PokeAPI.Pokemon>) => (
+      <PokemonActionCard
+        onPress={() => {
+          router.navigate({
+            pathname: "/main/poke-details",
+            params: { index }
+          });
+        }}
+        pokemon={item}
+      />
     ),
-    []
+    [router]
   );
 
   return (
