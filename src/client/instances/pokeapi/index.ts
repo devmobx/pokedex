@@ -43,3 +43,19 @@ export const getPaginatedPokemonList = ({
   );
   return handleAxiosRequest(request, handlers);
 };
+
+type GetPokemonSpeciesRequest = RequestPayload<
+  { pokemon: string },
+  AxiosResponse<PokeAPI.PokemonSpecies>
+>;
+
+export const getPokemonSpecies = ({
+  body,
+  ...handlers
+}: GetPokemonSpeciesRequest) => {
+  const request = pokeapi.get<PokeAPI.PokemonSpecies>(
+    `/pokemon-species/${body.pokemon}`
+  );
+
+  return handleAxiosRequest(request, handlers);
+};

@@ -41,7 +41,7 @@ export const DetailsContentSlider = ({ pokemon }: PokemonProp) => {
 
   return (
     <Box
-      backgroundColor="grey1"
+      backgroundColor="background"
       height="55%"
       paddingTop="lg"
       paddingHorizontal="sm"
