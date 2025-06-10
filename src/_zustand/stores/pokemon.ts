@@ -6,11 +6,11 @@ import { storeLogger } from "../middleware";
 import { createSelectors } from "../utils";
 
 type PokemonState = {
-  currentPokemon: PokeAPI.Pokemon | undefined;
-  pokemonList: PokeAPI.Pokemon[] | [];
+  searchResults: PokeAPI.Pokemon[] | [];
+  paginationList: PokeAPI.Pokemon[] | [];
   paginationData: PokeAPI.NamedAPIResourceList | undefined;
-  setCurrentPokemon: (pokemon: PokeAPI.Pokemon) => void;
-  setPokemonList: (pokemonList: PokeAPI.Pokemon[]) => void;
+  setSearchResults: (searchResults: PokeAPI.Pokemon[]) => void;
+  setPaginationList: (paginationList: PokeAPI.Pokemon[]) => void;
   setPaginationData: (paginationData: PokeAPI.NamedAPIResourceList) => void;
 };
 
@@ -19,16 +19,16 @@ export const pokemonStore = create<PokemonState>()(
     storeLogger(
       "POKEMON",
       (set): PokemonState => ({
-        currentPokemon: undefined,
-        pokemonList: [],
+        searchResults: [],
+        paginationList: [],
         paginationData: undefined,
-        setCurrentPokemon: (pokemon: PokeAPI.Pokemon) => {
-          set({ currentPokemon: pokemon }, false, "setCurrentPokemon");
+        setSearchResults: searchResults => {
+          set({ searchResults }, false, "setSearchResults");
         },
-        setPokemonList: (pokemonList: PokeAPI.Pokemon[]) => {
-          set({ pokemonList }, false, "setPokemonList");
+        setPaginationList: paginationList => {
+          set({ paginationList }, false, "setPaginationList");
         },
-        setPaginationData: (paginationData: PokeAPI.NamedAPIResourceList) => {
+        setPaginationData: paginationData => {
           set({ paginationData }, false, "setPaginationData");
         }
       })

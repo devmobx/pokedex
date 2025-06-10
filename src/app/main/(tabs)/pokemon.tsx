@@ -7,7 +7,7 @@ import {
   X
 } from "phosphor-react-native";
 import { PokeAPI } from "pokeapi-types";
-import {
+import React, {
   Dispatch,
   SetStateAction,
   useCallback,
@@ -60,15 +60,16 @@ export default function PokemonScreen() {
   const { t } = useTranslation();
   const [customSearch, setCustomSearch] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const currentPokemon = usePokemonStore.use.currentPokemon();
-  const pokemonList = usePokemonStore.use.pokemonList() as PokeAPI.Pokemon[];
+  const searchResults = usePokemonStore.use.searchResults();
+  const paginationList =
+    usePokemonStore.use.paginationList() as PokeAPI.Pokemon[];
   const paginationData = usePokemonStore.use.paginationData();
-  const setPokemonList = usePokemonStore.use.setPokemonList();
+  const setPaginationList = usePokemonStore.use.setPaginationList();
   const setPaginationData = usePokemonStore.use.setPaginationData();
 
   const loadPokemonList = useCallback(
     ({ limit, offset }: SearchParams) => {
-      setPokemonList([]);
+      setPaginationList([]);
       Pokeapi.getPaginatedPokemonList({
         body: { limit, offset },
         onSuccess: async res => {
@@ -85,11 +86,11 @@ export default function PokemonScreen() {
               }
             });
           }
-          setPokemonList(newPokemonList);
+          setPaginationList(newPokemonList);
         }
       });
     },
-    [setPaginationData, setPokemonList]
+    [setPaginationData, setPaginationList]
   );
 
   useEffect(() => {
@@ -120,27 +121,30 @@ export default function PokemonScreen() {
 
   const getDisplayablePokemon = useCallback(() => {
     if (customSearch) {
-      return currentPokemon ? [currentPokemon] : undefined;
+      return searchResults.length > 0 ? searchResults : undefined;
     }
-    if (pokemonList.length > 0) {
-      return pokemonList;
+    if (paginationList.length > 0) {
+      return paginationList;
     }
     return undefined;
-  }, [currentPokemon, customSearch, pokemonList]);
+  }, [searchResults, customSearch, paginationList]);
 
   const renderPokemon = useCallback(
     ({ item, index }: ListRenderItemInfo<PokeAPI.Pokemon>) => (
       <PokemonActionCard
+        pokemon={item}
         onPress={() => {
           router.navigate({
             pathname: "/main/poke-details",
-            params: { index }
+            params: {
+              index,
+              listType: customSearch ? "searchResults" : "pagination"
+            }
           });
         }}
-        pokemon={item}
       />
     ),
-    [router]
+    [customSearch, router]
   );
 
   return (

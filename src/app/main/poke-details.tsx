@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PokeAPI } from "pokeapi-types";
 import { Image } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { usePokemonStore } from "@/_zustand";
 import PokeballBg from "@/assets/svg/pokeball_bg.svg";
@@ -14,10 +15,10 @@ import {
 import { useTranslation } from "@/i18n/hooks";
 import { useTheme } from "@/theme";
 import { capitalizeFirst } from "@/utils";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-type PokeDetailsParams = {
+export type PokeDetailsParams = {
   index: string;
+  listType: "pagination" | "searchResults";
 };
 
 type PokemonProp = {
@@ -25,11 +26,18 @@ type PokemonProp = {
 };
 
 export default function PokeDetailsScreen() {
-  const { index } = useLocalSearchParams<PokeDetailsParams>();
-  const pokemonList = usePokemonStore.use.pokemonList() as PokeAPI.Pokemon[];
-  const pokemon = pokemonList[Number(index)];
+  const { index, listType } = useLocalSearchParams<PokeDetailsParams>();
+  const paginationList = usePokemonStore.use.paginationList();
+  const searchResults = usePokemonStore.use.searchResults();
   const { t } = useTranslation();
   const router = useRouter();
+
+  const pokemonListTypeGetters = {
+    pagination: () => paginationList[Number(index)],
+    searchResults: () => searchResults[Number(index)]
+  };
+
+  const pokemon = pokemonListTypeGetters[listType]();
 
   return (
     <Screen.Container bgColor="grey6">
@@ -48,7 +56,7 @@ const Details = ({ pokemon }: PokemonProp) => {
   return (
     <Box
       backgroundColor="grey1"
-      height="50%"
+      height="55%"
       style={{
         paddingBottom: insets.bottom,
         borderTopLeftRadius: theme.border.radius.xxl,

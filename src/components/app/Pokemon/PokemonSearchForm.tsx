@@ -13,7 +13,7 @@ import { showToast } from "@/utils";
 
 export const PokemonSearchForm = () => {
   const { t, language } = useTranslation();
-  const setCurrentPokemon = usePokemonStore.use.setCurrentPokemon();
+  const setSearchResults = usePokemonStore.use.setSearchResults();
 
   const {
     control,
@@ -34,7 +34,7 @@ export const PokemonSearchForm = () => {
         Pokeapi.getPokemon({
           body: { pokemon },
           onSuccess: res => {
-            setCurrentPokemon(res.data);
+            setSearchResults([res.data]);
             resolve();
           },
           onFailure: error => {
@@ -53,7 +53,7 @@ export const PokemonSearchForm = () => {
         });
       });
     },
-    [setCurrentPokemon, t]
+    [setSearchResults, t]
   );
 
   return (
