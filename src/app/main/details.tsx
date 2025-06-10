@@ -1,10 +1,9 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { PokeAPI } from "pokeapi-types";
+import { useLocalSearchParams } from "expo-router";
 import { Image } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { usePokemonStore } from "@/_zustand";
 import PokeballBg from "@/assets/svg/pokeball_bg.svg";
+import { DetailsContentSlider } from "@/components/app/Details";
 import {
   Box,
   FontText,
@@ -12,25 +11,18 @@ import {
   PokeballBgScreenContent,
   Screen
 } from "@/components/shared";
-import { useTranslation } from "@/i18n/hooks";
-import { useTheme } from "@/theme";
 import { capitalizeFirst } from "@/utils";
+import { PokemonProp } from "@/types/props";
 
 export type PokeDetailsParams = {
   index: string;
   listType: "pagination" | "searchResults";
 };
 
-type PokemonProp = {
-  pokemon: PokeAPI.Pokemon;
-};
-
-export default function PokeDetailsScreen() {
+export default function DetailsScreen() {
   const { index, listType } = useLocalSearchParams<PokeDetailsParams>();
   const paginationList = usePokemonStore.use.paginationList();
   const searchResults = usePokemonStore.use.searchResults();
-  const { t } = useTranslation();
-  const router = useRouter();
 
   const pokemonListTypeGetters = {
     pagination: () => paginationList[Number(index)],
@@ -44,27 +36,10 @@ export default function PokeDetailsScreen() {
       <PokeballBgScreenContent>
         <Header pokemon={pokemon} />
       </PokeballBgScreenContent>
-      <Details pokemon={pokemon} />
+      <DetailsContentSlider pokemon={pokemon} />
     </Screen.Container>
   );
 }
-
-const Details = ({ pokemon }: PokemonProp) => {
-  const insets = useSafeAreaInsets();
-  const theme = useTheme();
-
-  return (
-    <Box
-      backgroundColor="grey1"
-      height="55%"
-      style={{
-        paddingBottom: insets.bottom,
-        borderTopLeftRadius: theme.border.radius.xxl,
-        borderTopRightRadius: theme.border.radius.xxl
-      }}
-    ></Box>
-  );
-};
 
 const Header = ({ pokemon }: PokemonProp) => {
   return (

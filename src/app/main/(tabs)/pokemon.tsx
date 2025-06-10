@@ -135,7 +135,7 @@ export default function PokemonScreen() {
         pokemon={item}
         onPress={() => {
           router.navigate({
-            pathname: "/main/poke-details",
+            pathname: "/main/details",
             params: {
               index,
               listType: customSearch ? "searchResults" : "pagination"

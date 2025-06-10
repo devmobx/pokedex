@@ -10656,11 +10656,13 @@ __metadata:
     react-native: "npm:0.79.2"
     react-native-aria: "npm:^0.2.3"
     react-native-gesture-handler: "npm:~2.24.0"
+    react-native-pager-view: "npm:^6.8.1"
     react-native-reanimated: "npm:~3.17.4"
     react-native-safe-area-context: "npm:5.4.0"
     react-native-screens: "npm:~4.10.0"
     react-native-svg: "npm:15.11.2"
     react-native-svg-transformer: "npm:^1.5.1"
+    react-native-tab-view: "npm:^4.1.1"
     react-native-toast-message: "npm:^2.3.0"
     react-native-web: "npm:~0.20.0"
     react-native-webview: "npm:13.13.5"
@@ -11053,6 +11055,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-pager-view@npm:^6.8.1":
+  version: 6.8.1
+  resolution: "react-native-pager-view@npm:6.8.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/1b6f6bac77616adbe59f0b9b2f37c86c00c27b9fc8ebee7b769ffdbce88c235689deb53dca923e263ab0f97a9a1731362add4b1dff65467ce82889c8910f7186
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:~3.17.4":
   version: 3.17.5
   resolution: "react-native-reanimated@npm:3.17.5"
@@ -11126,6 +11138,19 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/040f3a298db80f4a282f9616c9550d7978beebc518de523eb417106afd7f5cb1d021424ea287cedba705f0c48aa15631056c42a79c4b46edcafa34cba71aed63
+  languageName: node
+  linkType: hard
+
+"react-native-tab-view@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "react-native-tab-view@npm:4.1.1"
+  dependencies:
+    use-latest-callback: "npm:^0.2.3"
+  peerDependencies:
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-pager-view: ">= 6.0.0"
+  checksum: 10c0/6a0f5d76a1b9fc83a2c06a77542067dcbffb4725d76800f2fb1380ec7a17ce8f50a101b787d226db536ab7e52ad4181b172d4531715c9d5caeb99b943c8ebc3e
   languageName: node
   linkType: hard
 

@@ -5,7 +5,7 @@ export default function MainLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="poke-details" />
+      <Stack.Screen name="details" />
     </Stack>
   );
 }
