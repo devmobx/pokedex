@@ -24,7 +24,12 @@ export const handleAxiosRequest = async <T>(
   const TAG = "AXIOS";
   try {
     const response = await request;
-    styledLog(TAG, { text: "lightblue", background: "blue" }, response);
+    styledLog(
+      TAG,
+      { text: "lightblue", background: "blue" },
+      `${response.config.baseURL}${response.config.url}`,
+      response
+    );
     handlers?.onSuccess?.(response);
   } catch (error) {
     if (isAxiosError(error)) {
