@@ -25,16 +25,7 @@ export type FontSize =
 
 export type BorderSize = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type Spacing =
-  | "xxs"
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "xxl"
-  | "none"
-  | "auto";
+export type Spacing = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "none";
 
 export type Radius = "none" | "sm" | "md" | "lg" | "xl" | "xxl" | "full";
 

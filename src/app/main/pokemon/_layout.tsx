@@ -1,12 +1,10 @@
 import { Stack } from "expo-router";
 import "react-native-reanimated";
 
-export default function MainLayout() {
+export default function PokemonLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="pokemon" />
-      <Stack.Screen name="settings" />
+      <Stack.Screen name="details" />
     </Stack>
   );
 }

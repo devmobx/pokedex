@@ -8,5 +8,7 @@
   "home": "Home",
   "type_charts": "Type Charts",
   "requiredField": "This field is required",
-  "search": "Search"
+  "search": "Search",
+  "settings": "Settings",
+  "language": "Language"
 }

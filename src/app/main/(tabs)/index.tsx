@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 
-import { HomeActionTile } from "@/components/app/Home";
+import { HomeActionTile } from "@/components/app/Main/Tabs/Home";
 import {
   Box,
   FontText,

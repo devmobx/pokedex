@@ -1,6 +1,6 @@
-import { Theme } from '../types/theme';
+import { Theme } from "../types/theme";
 
-export const spacing: Theme['spacing'] = {
+export const spacing: Theme["spacing"] = {
   xxl: 40,
   xl: 32,
   lg: 24,
@@ -8,5 +8,5 @@ export const spacing: Theme['spacing'] = {
   sm: 10,
   xs: 8,
   xxs: 4,
-  none: 0,
+  none: 0
 } as const;

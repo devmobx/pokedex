@@ -18,7 +18,11 @@ import { Dimensions, FlatList, ListRenderItemInfo } from "react-native";
 
 import { usePokemonStore } from "@/_zustand";
 import { Pokeapi } from "@/client";
-import { PokemonActionCard, PokemonSearchForm } from "@/components/app/Pokemon";
+import {
+  PokemonActionCard,
+  PokemonSearchForm
+} from "@/components/app/Main/Tabs/Pokemon";
+
 import {
   AnimatedPressable,
   Box,
@@ -28,7 +32,7 @@ import {
   Spinner
 } from "@/components/shared";
 import { useTranslation } from "@/i18n/hooks";
-import { Spacing, styled } from "@/theme";
+import { MarginSpacing, styled } from "@/theme";
 
 type SearchFormToggleButtonProps = {
   customSearch: boolean;
@@ -135,7 +139,7 @@ export default function PokemonScreen() {
         pokemon={item}
         onPress={() => {
           router.navigate({
-            pathname: "/main/details",
+            pathname: "/main/pokemon/details",
             params: {
               index,
               listType: customSearch ? "searchResults" : "pagination"
@@ -194,7 +198,7 @@ export default function PokemonScreen() {
 type PaginationButtonProps = {
   action: "next" | "previous";
   loadPokemonList: (params: SearchParams) => void;
-  marginLeft?: Spacing;
+  marginLeft?: MarginSpacing;
 };
 
 const PaginationButton = ({

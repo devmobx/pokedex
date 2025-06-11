@@ -1,9 +1,10 @@
 import { useLocalSearchParams } from "expo-router";
+import { PokeAPI } from "pokeapi-types";
 import { Image } from "react-native";
 
 import { usePokemonStore } from "@/_zustand";
 import PokeballBg from "@/assets/svg/pokeball_bg.svg";
-import { DetailsContentSlider } from "@/components/app/Details";
+import { DetailsContentSlider } from "@/components/app/Main/Pokemon/Details";
 import {
   Box,
   FontText,
@@ -11,20 +12,25 @@ import {
   PokeballBgScreenContent,
   Screen
 } from "@/components/shared";
-import { capitalizeFirst } from "@/utils";
 import { PokemonProp } from "@/types/props";
+import { capitalizeFirst } from "@/utils";
 
 export type PokeDetailsParams = {
   index: string;
   listType: "pagination" | "searchResults";
 };
 
+type PokemonListTypeGetters = Record<
+  PokeDetailsParams["listType"],
+  () => PokeAPI.Pokemon
+>;
+
 export default function DetailsScreen() {
   const { index, listType } = useLocalSearchParams<PokeDetailsParams>();
   const paginationList = usePokemonStore.use.paginationList();
   const searchResults = usePokemonStore.use.searchResults();
 
-  const pokemonListTypeGetters = {
+  const pokemonListTypeGetters: PokemonListTypeGetters = {
     pagination: () => paginationList[Number(index)],
     searchResults: () => searchResults[Number(index)]
   };

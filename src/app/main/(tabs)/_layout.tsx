@@ -1,11 +1,11 @@
 import { Tabs } from "expo-router";
-import { Alien, House, IconProps } from "phosphor-react-native";
+import { Alien, Gear, House, IconProps } from "phosphor-react-native";
 
 import { useTranslation } from "@/i18n/hooks";
 import { styled, useTheme } from "@/theme";
 
 const TabBarIcon = styled(House).attrs<IconProps>(props => ({
-  size: props.theme.icon.size.xl,
+  size: 35,
   ...props
 }))``;
 
@@ -34,7 +34,7 @@ export default function TabLayout() {
         },
         tabBarLabelStyle: {
           fontSize: theme.font.size.sm,
-          marginTop: theme.spacing.xxs,
+          marginTop: theme.spacing.xs,
           fontFamily: theme.font.family.inter["semi-bold"]
         }
       }}
@@ -52,6 +52,15 @@ export default function TabLayout() {
           title: t("base:pokemon"),
           tabBarIcon: ({ color }: IconProps) => (
             <TabBarIcon as={Alien} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: t("base:settings"),
+          tabBarIcon: ({ color }: IconProps) => (
+            <TabBarIcon as={Gear} color={color} />
           )
         }}
       />
