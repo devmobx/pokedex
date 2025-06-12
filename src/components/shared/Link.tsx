@@ -1,8 +1,8 @@
 import { Href, useRouter } from "expo-router";
+import { TextStyle } from "react-native";
 
 import { Color } from "@/theme";
 
-import { TextStyle } from "react-native";
 import { AnimatedPressable, AnimatedPressableProps } from "./AnimatedPressable";
 import { FontText } from "./FontText";
 

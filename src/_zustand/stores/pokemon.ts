@@ -1,9 +1,9 @@
 import { PokeAPI } from "pokeapi-types";
-import { create } from "zustand";
+import { create, StoreApi, UseBoundStore } from "zustand";
 import { devtools } from "zustand/middleware";
 
 import { storeLogger } from "../middleware";
-import { createSelectors } from "../utils";
+import { createSelectors, WithSelectors } from "../utils";
 
 type PokemonState = {
   searchResults: PokeAPI.Pokemon[] | [];
@@ -36,4 +36,6 @@ export const pokemonStore = create<PokemonState>()(
   )
 );
 
-export const usePokemonStore = createSelectors(pokemonStore);
+export const usePokemonStore: WithSelectors<
+  UseBoundStore<StoreApi<PokemonState>>
+> = createSelectors(pokemonStore);

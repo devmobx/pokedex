@@ -22,7 +22,6 @@ import {
   PokemonActionCard,
   PokemonSearchForm
 } from "@/components/app/Main/Tabs/Pokemon";
-
 import {
   AnimatedPressable,
   Box,

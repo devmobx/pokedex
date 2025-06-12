@@ -1,4 +1,3 @@
-import { useRouter } from "expo-router";
 import { FC } from "react";
 import { SvgProps } from "react-native-svg";
 
@@ -17,7 +16,6 @@ import { useTranslation } from "@/i18n/hooks";
 
 export default function LanguageScreen() {
   const { t, setLanguage } = useTranslation();
-  const router = useRouter();
 
   return (
     <Screen.Container edges={["bottom"]}>
