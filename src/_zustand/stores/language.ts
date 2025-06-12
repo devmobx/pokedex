@@ -18,10 +18,10 @@ export const languageStore = create<LanguageState>()(
       persist(
         (set): LanguageState => ({
           language: "en",
-          setLanguage: (lang: SupportedLanguages) => {
+          setLanguage: language => {
             console.log("i18n instance", i18n);
-            set({ language: lang }, false, "setLanguage");
-            i18n.changeLanguage(lang);
+            set({ language }, false, "setLanguage");
+            i18n.changeLanguage(language);
           }
         }),
         {

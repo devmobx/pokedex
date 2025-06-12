@@ -19,7 +19,7 @@ export const themeStore = create<ThemeState>()(
       persist(
         (set): ThemeState => ({
           colorScheme: "light",
-          setColorScheme: (colorScheme: ColorScheme) => {
+          setColorScheme: colorScheme => {
             set({ colorScheme }, undefined, "setColorScheme");
           }
         }),
