@@ -40,7 +40,9 @@ export default function DetailsScreen() {
   return (
     <Screen.Container bgColor="grey6">
       <PokeballBgScreenContent>
-        <Header pokemon={pokemon} />
+        <Screen.Content headerShown>
+          <Header pokemon={pokemon} />
+        </Screen.Content>
       </PokeballBgScreenContent>
       <DetailsContentSlider pokemon={pokemon} />
     </Screen.Container>
@@ -49,9 +51,8 @@ export default function DetailsScreen() {
 
 const Header = ({ pokemon }: PokemonProp) => {
   return (
-    <Box flex={1} justifyContent="flex-start">
+    <>
       <Box
-        marginTop="xxl"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
@@ -76,7 +77,7 @@ const Header = ({ pokemon }: PokemonProp) => {
       <Box alignItems="center">
         <PokemonImage pokemon={pokemon} />
       </Box>
-    </Box>
+    </>
   );
 };
 

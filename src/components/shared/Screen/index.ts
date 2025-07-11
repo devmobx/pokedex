@@ -1,12 +1,9 @@
-import { styled } from "@/theme";
-
 import { Container } from "./Container";
+import { Content } from "./Content";
 import { Header } from "./Header";
 
 export const Screen = {
   Container,
-  Content: styled.View`
-    flex: 1;
-  `,
+  Content,
   Header
 };

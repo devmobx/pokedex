@@ -19,8 +19,8 @@ export default function LanguageScreen() {
   return (
     <Screen.Container edges={["bottom"]}>
       <PokeballBgScreenContent>
-        <Screen.Header>{t("base:language")}</Screen.Header>
-        <Screen.Content>
+        <Screen.Content headerShown>
+          <Screen.Header>{t("base:language")}</Screen.Header>
           <LanguageSelector
             header="English"
             FlagIcon={EnFlag}
