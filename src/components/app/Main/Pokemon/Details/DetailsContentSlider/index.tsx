@@ -59,12 +59,12 @@ export const DetailsContentSlider = ({ pokemon }: PokemonProp) => {
         renderTabBar={props => (
           <TabBar
             {...props}
-            indicatorStyle={{
-              backgroundColor: theme.color.male
-            }}
             style={{ backgroundColor: "transparent" }}
             activeColor={theme.color.grey9}
             inactiveColor={theme.color.grey5}
+            indicatorStyle={{
+              backgroundColor: theme.color.male
+            }}
           />
         )}
       />

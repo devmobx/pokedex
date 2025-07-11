@@ -1,5 +1,4 @@
 import { Stack } from "expo-router";
-import "react-native-reanimated";
 
 import { useHeaderConfig } from "@/navigation";
 import { useTheme } from "@/theme";

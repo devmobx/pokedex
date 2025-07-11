@@ -5,6 +5,7 @@ import { Pokeapi } from "@/client";
 import { FontText, Screen } from "@/components/shared";
 import { useTranslation } from "@/i18n/hooks";
 import { PokemonProp } from "@/types/props";
+import { SlideContent } from "../SlideContent";
 
 export const AboutSlide = ({ pokemon }: PokemonProp) => {
   const [species, setSpecies] = useState<PokeAPI.PokemonSpecies>();
@@ -21,19 +22,21 @@ export const AboutSlide = ({ pokemon }: PokemonProp) => {
 
   return (
     <Screen.Container>
-      {species?.flavor_text_entries.map((text, i) => {
-        if (
-          text.language.name === language &&
-          text.version.name === "alpha-sapphire"
-        ) {
-          return (
-            <FontText key={i}>
-              {text.flavor_text.split("\n").join(" ")}
-            </FontText>
-          );
-        }
-        return null;
-      })}
+      <SlideContent>
+        {species?.flavor_text_entries.map((text, i) => {
+          if (
+            text.language.name === language &&
+            text.version.name === "alpha-sapphire"
+          ) {
+            return (
+              <FontText key={i}>
+                {text.flavor_text.split("\n").join(" ")}
+              </FontText>
+            );
+          }
+          return null;
+        })}
+      </SlideContent>
     </Screen.Container>
   );
 };
