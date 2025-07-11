@@ -1,17 +1,17 @@
+import { NativeStackHeaderLeftProps } from "@react-navigation/native-stack";
+import { useRouter } from "expo-router";
+
 import BackArrow from "@/assets/svg/back_arrow.svg";
 import { AnimatedPressable, Graphic } from "@/components/shared";
 import { useTheme } from "@/theme";
 
-type Props = {
-  onPress: () => void;
-};
-
-export const HeaderLeftButton = ({ onPress }: Props) => {
+export const HeaderLeftButton = (props: NativeStackHeaderLeftProps) => {
   const theme = useTheme();
+  const router = useRouter();
 
   return (
     <AnimatedPressable
-      onPress={onPress}
+      onPress={() => props.canGoBack && router.back()}
       backgroundColor="transparentGrey1"
       width={30}
       height={30}

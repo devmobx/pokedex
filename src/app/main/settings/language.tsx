@@ -8,7 +8,6 @@ import {
   Box,
   FontText,
   Graphic,
-  Header,
   PokeballBgScreenContent,
   Screen
 } from "@/components/shared";
@@ -20,10 +19,8 @@ export default function LanguageScreen() {
   return (
     <Screen.Container edges={["bottom"]}>
       <PokeballBgScreenContent>
-        <Box justifyContent="flex-start">
-          <Header>{t("base:language")}</Header>
-        </Box>
-        <Box flex={1} justifyContent="flex-start">
+        <Screen.Header>{t("base:language")}</Screen.Header>
+        <Screen.Content>
           <LanguageSelector
             header="English"
             FlagIcon={EnFlag}
@@ -34,7 +31,7 @@ export default function LanguageScreen() {
             FlagIcon={FrFlag}
             onPress={() => setLanguage("fr")}
           />
-        </Box>
+        </Screen.Content>
       </PokeballBgScreenContent>
     </Screen.Container>
   );

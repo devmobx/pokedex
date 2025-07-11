@@ -64,8 +64,7 @@ export default function PokemonScreen() {
   const [customSearch, setCustomSearch] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const searchResults = usePokemonStore.use.searchResults();
-  const paginationList =
-    usePokemonStore.use.paginationList() as PokeAPI.Pokemon[];
+  const paginationList = usePokemonStore.use.paginationList();
   const paginationData = usePokemonStore.use.paginationData();
   const setPaginationList = usePokemonStore.use.setPaginationList();
   const setPaginationData = usePokemonStore.use.setPaginationData();
@@ -77,11 +76,12 @@ export default function PokemonScreen() {
         body: { limit, offset },
         onSuccess: async res => {
           setPaginationData(res.data);
-          let newPokemonList = [] as PokeAPI.Pokemon[];
+          const newPokemonList = [] as PokeAPI.Pokemon[];
 
           for (let result of res.data.results) {
             const splitUrl = result.url.split("/");
             const pokemonId = splitUrl[splitUrl.length - 2];
+
             await Pokeapi.getPokemon({
               body: { pokemon: pokemonId },
               onSuccess: res => {

@@ -1,9 +1,11 @@
 import { Stack } from "expo-router";
-import "react-native-reanimated";
+
+import { useHeaderConfig } from "@/navigation";
 
 export default function SettingsLayout() {
+  const headerConfig = useHeaderConfig();
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={headerConfig}>
       <Stack.Screen name="language" />
     </Stack>
   );

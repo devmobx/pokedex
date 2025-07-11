@@ -1,11 +1,11 @@
+import "react-native-reanimated";
+
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import "react-native-reanimated";
 import ToastBase, { ToastConfig } from "react-native-toast-message";
 
 import { useThemeStore } from "@/_zustand";
 import { Toast } from "@/components/shared";
-import { useHeaderConfig } from "@/navigation";
 import { getThemeByColorScheme, ThemeProvider, useLoadFonts } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
@@ -18,10 +18,8 @@ export const toastConfig: ToastConfig = {
 };
 
 const RootNavigationStack = () => {
-  const headerConfig = useHeaderConfig();
-
   return (
-    <Stack screenOptions={headerConfig}>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="main" />
     </Stack>

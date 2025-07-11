@@ -6,6 +6,7 @@ import { useTranslation } from "@/i18n/hooks";
 export default function StartScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+
   return (
     <Screen.Container
       edges={["top", "bottom"]}

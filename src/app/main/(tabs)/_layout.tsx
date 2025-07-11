@@ -43,25 +43,21 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t("base:home"),
-          tabBarIcon: ({ color }: IconProps) => <TabBarIcon color={color} />
+          tabBarIcon: props => <TabBarIcon {...props} />
         }}
       />
       <Tabs.Screen
         name="pokemon"
         options={{
           title: t("base:pokemon"),
-          tabBarIcon: ({ color }: IconProps) => (
-            <TabBarIcon as={Alien} color={color} />
-          )
+          tabBarIcon: props => <TabBarIcon as={Alien} {...props} />
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: t("base:settings"),
-          tabBarIcon: ({ color }: IconProps) => (
-            <TabBarIcon as={Gear} color={color} />
-          )
+          tabBarIcon: props => <TabBarIcon as={Gear} {...props} />
         }}
       />
     </Tabs>

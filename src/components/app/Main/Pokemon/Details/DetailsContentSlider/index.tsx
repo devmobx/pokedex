@@ -56,7 +56,7 @@ export const DetailsContentSlider = ({ pokemon }: PokemonProp) => {
         renderScene={renderSlides}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={(props: Record<string, unknown>) => (
+        renderTabBar={props => (
           <TabBar
             {...props}
             indicatorStyle={{
@@ -65,9 +65,6 @@ export const DetailsContentSlider = ({ pokemon }: PokemonProp) => {
             style={{ backgroundColor: "transparent" }}
             activeColor={theme.color.grey9}
             inactiveColor={theme.color.grey5}
-            labelStyle={{
-              fontFamily: theme.font.family.inter.bold
-            }}
           />
         )}
       />
